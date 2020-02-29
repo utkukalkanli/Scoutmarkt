@@ -1,4 +1,5 @@
-## Welcome to GitHub Pages
+## Scouting Platform
+This is a test
 
 You can use the [editor on GitHub](https://github.com/utkukalkanli319/CS353-Database-Project/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
@@ -14,6 +15,7 @@ Syntax highlighted code block
 # Header 1
 ## Header 2
 ### Header 3
+# Test Header
 
 - Bulleted
 - List
