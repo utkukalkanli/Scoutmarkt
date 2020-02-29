@@ -1,5 +1,5 @@
 ## Scouting Platform
-This is a test
+This is a test, scoutmarkt is so cool, as if their developers
 
 You can use the [editor on GitHub](https://github.com/utkukalkanli319/CS353-Database-Project/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
