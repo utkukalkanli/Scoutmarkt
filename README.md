@@ -63,23 +63,18 @@ Table of Contents
 
 
 
-	1. Introduction
+1. Introduction
 This report is the proposal report for the CS 353 Database Systems term project. This project is designed to create a scouting platform for the football clubs. This proposal report details the project description, functional and non-functional requirements, limitations and entity-relationship model for the database system. Progress of the project can be followed through this website: https://github.com/utkukalkanli319/Scoutmarkt
-
-	2. Project Description
+2. Project Description
 	This project is a web-based scouting platform for football players just like https://scoutingsystem.com. There are clubs, scouting agencies, scouts, football players and agents. Clubs request scouts from scouting agencies to observe and find talented football players in certain tournaments and/or countries. According to club requests scouting agencies select suitable scouts and assign them to tasks. After their observations finish scouts write a report on the talented football players and serves it back to clubs. Clubs compare their football players with the reported football players and may choose to make a transfer offer to the talented football player’s club and agent.
 
-	2.1 Why a Database System Is Needed 
+2.1 Why a Database System Is Needed 
 	Football environment contains vast amount of information about its participants such as players, clubs, tournaments, agents, scouts and so on. Informations about these components are not just static. They are also changed and updated in time. In addition, there are actions to be recorded such as transfer to maintain consistency in the system and to it reliable. It is remarkably difficult to store and update such a huge amount of information without automated system. Therefore, we use database to handle this difficulty and regulate a certain actions that users perform.
-
-	2.2 How a Database System Is Going to Be Used
+2.2 How a Database System Is Going to Be Used
 
 	The database is going to provide structure to manage all data related to scouting in football. We are going to use the database management system so as to search for the relevant data regarding users’ demands by way of queries. We are going to update the database considering different events such as matches, transfers, performance changes by creating new entries or updating the current ones. The database is going to provide data about clubs requesting talented players and scouting agencies that have agents. Thus, clubs can find a talented players and compare them with their own players among these data. Additionally, we are going to use the database triggers to relate distinct elements to each other to provide a fluid and functional system.
-
-	3. Requirements
-
-	3.1 Functional Requirements
-
+3. Requirements
+3.1 Functional Requirements
 	3.1.1 Football Club Requirements 
 Football clubs have the name, league, rank and country.
 Football clubs can request scouts from scout agencies. 
@@ -87,7 +82,6 @@ Football clubs compare footballers by their talents.
 Clubs can make transfer offer.
 Clubs can accept or decline transfer offer.
 Clubs will have contract with their own football players
-
 	3.1.2 Scouting Agency Requirements 
 Scouting agencies have name and scouts.
 Scouting agencies will assign scouts. 
@@ -120,15 +114,14 @@ Transfer offers will have player name and fee.
 Admins have special access to the system in order to control the technical process and problems. 
 	3.1.7 System Requirements 
 System sends a notification when there is an update related to transfer offers. 
-	
 3.2 Non-Functional Requirements
 	3.2.1 Performance
 	In order to maintain the online traffic through the system, the server will handle more than 100 people at the same time.  
-	3.2.2 Reliability
+3.2.2 Reliability
 Our system has different types of entrance to the system such as the football club or scouting agency.  Therefore, it is important to distinguish the sign in properties according to different types of users. To achieve this goal our system will have usernames and password. In order to obtain a secure system this information is encrypted by MD5 algorithm. 
-	3.2.3 Maintainability
+3.2.3 Maintainability
 In order to obtain maintainability, the design patterns will be used to make the development process easier. Also the project will be done according to object oriented engineering principles. 
-	3.2.4 User Friendly Interface
+3.2.4 User Friendly Interface
 	The target users of our project are agencies and football clubs. Since these users are not expected to be knowledge on database usage, our main goal is to prepare an user friendly interface to those who will use our system. The user friendly interface includes the easy and quick log in to the system, the plain design of the buttons which are easy to find and use, different types of interface which is design to the user types such as club, agent or agency. 
  
 3.3 Pseudo Requirements (Constraints)
@@ -146,7 +139,6 @@ A user ( football club, agent, agency) can only one account in the system.
 In order to register to the system as the football club or agency services, legal name and country must be stated. Football clubs are also expected to state their current players. 
 The agents, clubs and agents can add a picture or logo if it is less than 20 MB.
 Admins cannot create a user account. 
-
 5. Entity - Relationship Model
 5.1 Entity - Relationship Diagram
 
