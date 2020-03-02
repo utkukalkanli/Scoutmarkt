@@ -121,7 +121,7 @@ Admins have special access to the system in order to control the technical proce
 	3.1.7 System Requirements 
 System sends a notification when there is an update related to transfer offers. 
 	
-	3.2 Non-Functional Requirements
+3.2 Non-Functional Requirements
 	3.2.1 Performance
 	In order to maintain the online traffic through the system, the server will handle more than 100 people at the same time.  
 	3.2.2 Reliability
@@ -131,14 +131,14 @@ In order to obtain maintainability, the design patterns will be used to make the
 	3.2.4 User Friendly Interface
 	The target users of our project are agencies and football clubs. Since these users are not expected to be knowledge on database usage, our main goal is to prepare an user friendly interface to those who will use our system. The user friendly interface includes the easy and quick log in to the system, the plain design of the buttons which are easy to find and use, different types of interface which is design to the user types such as club, agent or agency. 
  
-	3.3 Pseudo Requirements (Constraints)
+3.3 Pseudo Requirements (Constraints)
 We will use MySQL as Structured Query Language
 We will use PHP for back-end development
 HTML, CSS and Javascript will be used for our website
 We plan to use AJAX to interactively communicate between webpage and database
 We will use MD5 algorithm for encryption. 
 
-	4. Limitations
+4. Limitations
 In order to sign up to the system, users with personal accounts must give their real name, surname, and they have to select the company or football player that are working for. 
 The password must have at least 5 characters which are consist of at least one letter and one number. 
 The transfer only happens if both the football club and the football player's personal agency approve the process. 
@@ -147,15 +147,15 @@ In order to register to the system as the football club or agency services, lega
 The agents, clubs and agents can add a picture or logo if it is less than 20 MB.
 Admins cannot create a user account. 
 
-	5. Entity - Relationship Model
-	5.1 Entity - Relationship Diagram
+5. Entity - Relationship Model
+5.1 Entity - Relationship Diagram
 
 
-	6. Conclusion
+6. Conclusion
 Clubs play matches which can be in a tournament or a league. Clubs have football players. Every football player have an agent who represents the player in transfer request. The clubs can make a request to the scouting agency for scouting talented players. After the request is made, the agency assign a scout to an event to watch players and the scout prepares a report to state the players' abilities. This report is sent to the club for evaluation. Clubs can compare the talented players in the report and make a transfer offer in demand. If both the requesting club and football player's agent approve the transfer, it happens.
 
-	Website :   https://utkukalkanli319.github.io/Scoutmarkt/
-	7. References
+Website :   https://utkukalkanli319.github.io/Scoutmarkt/
+7. References
 Avi Silberschatz , Henry F. Korth , S. Sudarshan, “Database System Concepts, Sixth
 Edition”, ISBN-13: 978-93-3290-138-4, MCGraw Hill
 
