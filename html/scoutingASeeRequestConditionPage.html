@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+p{
+  color: black;
+  font-size: 60px;
+  text-align: center;
+  text-shadow: 2px 2px 2px #008CBA;
+}
+
+/* icon button - home */
+.btn {
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 15px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 4px;
+  margin-right: 280px;
+  position:absolute;
+  top:0;
+  right:0;
+}
+
+c{
+  color: grey;
+  font-size: 15px;
+  text-align: center;
+}
+
+headline {
+text-shadow: 2px 2px 2px #008CBA;
+font-size: 60px;
+text-align: center;
+}
+
+title1 {
+color: black;
+text-shadow: 2px 2px 2px #008CBA;
+font-size: 40px;
+margin-top: 10px;
+padding: 15px 20px;
+}
+
+.profilebutton {
+  background-color: #008CBA; /* Blue */
+  border: #555555; /* Black */
+  color: white;
+  padding: 15px 32px;
+
+  text-decoration: none;
+
+  font-size: 16px;
+  margin-top: 4px;
+  margin-right: 150px;
+  position:absolute;
+  top:0;
+  right:0;
+}
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+.logoutbutton {
+  background-color: #008CBA; /* Blue */
+  border: #555555; /* Black */
+  color: white;
+  padding: 15px 32px;
+
+  text-decoration: none;
+
+  font-size: 16px;
+  margin-top: 4px;
+  margin-right: 10px;
+  position:absolute;
+  top:0;
+  right:0;
+}
+
+.sendReportButton {
+  background-color: #008CBA; /* Blue */
+  border: #555555; /* Black */
+  color: white;
+  padding: 15px 32px;
+
+  text-decoration: none;
+
+  font-size: 16px;
+  position:relative;
+  margin-bottom: 300px;
+  top:0;
+  right:0;
+}
+
+
+d {
+color: black;
+font-size: 20px;
+margin-top: 0px;
+margin-right: 10px;
+padding: 30px 30px;
+}
+
+smallD {
+color: black;
+font-size: 15px;
+margin-top: 0px;
+margin-right: 10px;
+padding: 30px 30px;
+}
+
+.styledimg {
+background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/522eb88f-6823-4672-a8de-49fc589745db/d67vche-6608fd42-98a0-4448-a20b-ce9b0a596268.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvNTIyZWI4OGYtNjgyMy00NjcyLWE4ZGUtNDlmYzU4OTc0NWRiXC9kNjd2Y2hlLTY2MDhmZDQyLTk4YTAtNDQ0OC1hMjBiLWNlOWIwYTU5NjI2OC5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.9SWVHT1Fh-HZXZBIxyuJvGhTkeipbN5rJFQeeOIEwVY);
+background-repeat: no-repeat;
+width: 100px;
+height: 100px;
+align: middle;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+
+/* Split Part */
+#col-1 {
+  position: relative;
+  width: 30%;
+  float: left;
+  height: 100%;
+  background-color: #ffffff;
+    z-index: 1010101010;
+   border: black;
+}
+
+
+
+#col-2 {
+  position: relative;
+  width: 60%;
+  float: right;
+  height: 100%;
+  background-color: #ffffff;
+  z-index: 1010101010;
+
+}
+
+.vertical {
+            border-left: 2px solid black;
+            height: 100%;
+            position:absolute;
+            left: 35%;
+        }
+
+.horizantal {
+            border-top: 2px solid black;
+            height: 100%;
+            position:absolute;
+            top: 10%;
+        }
+
+/* Split Part Ends */
+
+/*notification*/
+.notification {
+  background-color: #555;
+  color: white;
+  text-decoration: none;
+  padding: 15px 26px;
+  position: relative;
+  display: inline-block;
+  border-radius: 10px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.notification:hover {
+  background: red;
+}
+
+.notification .badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  padding: 5px 10px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+}
+
+/*table*/
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+/* text colors */
+
+.redText
+{
+    color: red;
+}
+
+.yellowText
+{
+    color: yellow;
+}
+
+.greenText
+{
+    color: green;
+}
+
+.purpleText
+{
+    color: purple;
+}
+
+/* Red border */
+hr.new1 {
+  border-top: 2px solid black;
+}
+
+</style>
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<body>
+
+<div>
+<title1>Request View </title1>
+<button class="logoutbutton">LogOut</button>
+<button class="profilebutton">Profile</button>
+<button class="btn"><i class="fa fa-home"></i></button>
+</div>
+
+<hr class="new1">
+
+<div id="col-1">
+ <h1> Request A </h1><br>
+ <d> From: Club A </d><br>
+ <d> Organization: </d><br>
+ <d> Number of Scouts: 2 </d><br>
+ <d> Positions:  </d><br>
+ <d> Scouts: </d><br>
+
+ <d> ADD BAR HERE </d>
+
+</div>
+
+<div class = "vertical"></div>
+
+<div id="col-2">
+
+<h1> Report </h1>
+
+<d> TEXT HERE  </d> <br>
+<br><br>
+
+<button class="sendReportButton">Send Report</button>
+
+
+
+
+</div>
+
+
+</body>
+
+
+<script>
+
+</script>
+
+</html>
