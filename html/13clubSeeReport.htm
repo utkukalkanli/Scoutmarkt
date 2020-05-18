@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+/* text styles */
+
+p{
+  color: black;
+  font-size: 60px;
+  text-align: center;
+  text-shadow: 2px 2px 2px #008CBA;
+}
+
+d {
+color: black;
+font-size: 30px;
+margin-top: 0px;
+margin-right: 10px;
+padding: 30px 30px;
+}
+
+
+title1 {
+color: black;
+text-shadow: 2px 2px 2px #008CBA;
+font-size: 40px;
+margin-top: 10px;
+padding: 15px 20px;
+}
+
+.btn {
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 15px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 4px;
+  margin-right: 280px;
+  position:absolute;
+  top:0;
+  right:0;
+}
+
+/* divides */
+
+#row-1 {
+  position: relative;
+  width: 100%;
+  float: right;
+  height: 80px;
+  background-color: #ffffff;
+  border: 1px solid black;
+
+}
+
+#row-2 {
+  position: relative;
+  width: 100%;
+  float: right;
+  height: 200px;
+  background-color: #ffffff;
+  border: 1px solid black;
+  overflow-y: scroll;
+}
+
+#row-3 {
+  position: relative;
+  width: 100%;
+  float: right;
+  height: 200px;
+  background-color: #B0C4DE;
+  border: 1px solid black;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: auto;
+}
+
+#row-4 {
+  position: relative;
+  width: 100%;
+  float: right;
+  height: 200px;
+  background-color: #B0C4DE;
+  border: 1px solid black;
+  white-space: nowrap;
+  overflow: auto;
+ }
+
+
+/* buttons */
+
+.logoutbutton {
+  background-color: #008CBA; /* Blue */
+  border: #555555; /* Black */
+  color: white;
+  padding: 15px 32px;
+
+  text-decoration: none;
+
+  font-size: 16px;
+  margin-top: 4px;
+  margin-right: 10px;
+  position:absolute;
+  top:0;
+  right:0;
+}
+
+.profilebutton {
+  background-color: #008CBA; /* Blue */
+  border: #555555; /* Black */
+  color: white;
+  padding: 15px 32px;
+
+  text-decoration: none;
+
+  font-size: 16px;
+  margin-top: 4px;
+  margin-right: 150px;
+  position:absolute;
+  top:0;
+  right:0;
+}
+
+.sendTransferOfferButton {
+  background-color: #008CBA; /* Blue */
+  border: #555555; /* Black */
+  color: white;
+  padding: 15px 32px;
+
+  text-decoration: none;
+
+  font-size: 16px;
+  position:relative;
+  margin-bottom: 300px;
+  top:10px;
+  right:0px;
+  left: 350px;
+  border-radius: 10px;
+}
+
+/*boxes*/
+
+playerTypes {
+  background-color: white;
+  width: 300px;
+  border: 1px solid green;
+  padding: 5px;
+  margin: 10px;
+  font-size: 20px;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 200px;
+  margin: auto;
+  text-align: center;
+  background-color: #F8F8FF;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+playerButton {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+  font-size: 22px;
+  color: black;
+}
+
+playerButton:hover, a:hover {
+  opacity: 0.7;
+}
+
+
+
+</style>
+
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+</head>
+<body>
+
+<div id = "row-1">
+<title1>Report A </title1>
+<button class="logoutbutton">LogOut</button>
+<button class="profilebutton">Profile</button>
+<button class="btn"><i class="fa fa-home"></i></button>
+</div>
+
+<div id = "row-2">
+
+
+</div>
+
+<div id = "row-3">
+<playerTypes> Candidate Players</playerTypes> <br><br>
+<div class="card">
+
+
+  <h1>John Doe</h1>
+  <d>Stars: 4</d>
+  <input type="checkbox" class="radio" id="playerID" name="check" value="1">
+</div>
+
+<div class="card">
+  <h1>John Doe</h1>
+  <d>Stars: 4</d>
+  <input type="checkbox" class="radio" id="playerID" name="check" value="1">
+</div>
+
+</div>
+
+<div id = "row-4">
+<playerTypes> Your Team </playerTypes>
+</div>
+
+<div>
+<button class="sendTransferOfferButton">Send Transfer Offer To Selected Ones</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</body>
+</html>
