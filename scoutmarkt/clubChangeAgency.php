@@ -1,20 +1,5 @@
+
 <!DOCTYPE html>
-<?php
-
-   session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
-   $dbhost = "127.0.0.1";
-   $dbuser = "root";
-   $dbpass = "";
-   $db = "scoutmarkt_db";
-
-   // Create connection
-   $conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
-   // Check connection
-   if ($conn->connect_error) {
-     die("Connection failed: " . $conn->connect_error);
-   }
-
-?>
 <html>
 <head>
 <style>
@@ -148,7 +133,7 @@ padding: 30px 30px;
   display: inline-block;
   font-size: 16px;
   margin-top: 4px;
-  margin-left: 350px;
+  margin-left: 150px;
   border-radius: 10px;
 }
 
@@ -169,7 +154,7 @@ padding: 30px 30px;
 }
 
 .seeReportButton {
-  background-color: #90EE90; /* Blue */
+  background-color: #008CBA; /* Blue */
   border: #555555; /* Black */
   color: white;
   padding: 15px 32px;
@@ -184,12 +169,12 @@ padding: 30px 30px;
   border-radius: 10px;
 }
 
-.imageRe{
+.styledimg {
+background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/522eb88f-6823-4672-a8de-49fc589745db/d67vche-6608fd42-98a0-4448-a20b-ce9b0a596268.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvNTIyZWI4OGYtNjgyMy00NjcyLWE4ZGUtNDlmYzU4OTc0NWRiXC9kNjd2Y2hlLTY2MDhmZDQyLTk4YTAtNDQ0OC1hMjBiLWNlOWIwYTU5NjI2OC5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.9SWVHT1Fh-HZXZBIxyuJvGhTkeipbN5rJFQeeOIEwVY);
 background-repeat: no-repeat;
 width: 100px;
 height: 100px;
 align: middle;
-margin-left: 15px;
 }
 
 .center {
@@ -201,6 +186,7 @@ margin-left: 15px;
 
 
 /* Split Part */
+
 #col-1 {
   position: relative;
   width: 20%;
@@ -210,7 +196,6 @@ margin-left: 15px;
     z-index: 1010101010;
    border: black;
 }
-
 
 
 #col-2 {
@@ -255,6 +240,24 @@ margin-left: 15px;
 .notification:hover {
   background: red;
 }
+
+
+.closeButton {
+  background-color: #008CBA; /* Blue */
+  border: #555555; /* Black */
+  color: white;
+  padding: 15px 32px;
+
+  text-decoration: none;
+
+  font-size: 15px;
+  position:relative;
+  margin-left: 30px;
+  top:0;
+  right:0;
+   border-radius: 10px;
+}
+
 
 .notification .badge {
   position: absolute;
@@ -312,30 +315,12 @@ hr.new1 {
 
 </style>
 </head>
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <body>
 
 <div>
-   <?php
-    $clubmail = $_SESSION['themail'];
-    $queryName = "SELECT * FROM Club WHERE ClubEmail = '$clubmail'";
-    $resultName = $conn->query($queryName);
-    while($rowName = $resultName->fetch_assoc()) {
-        //echo "id: " . $row["UserEmail"]. " - Name: " . $row["UserPassword"]. "<br>";
-        $theClubName = $rowName['ClubName'];
-        $theLeague = $rowName['League'];
-        $theRank = $rowName['ClubRank'];
-        $theCountry = $rowName['Country'];
-        $theOrganization = $rowName['Organization'];
-    }
-
-    echo "<title1> Welcome Club {$theClubName} </title1>";
-
-
-
-?>
+<title1>Welcome Club A</title1>
 <button class="logoutbutton">LogOut</button>
 <button class="profilebutton">Profile</button>
 </div>
@@ -343,18 +328,28 @@ hr.new1 {
 <hr class="new1">
 
 <div id="col-1">
- <h1> </h1>
-  <img class = "imageRe" src= "https://lh3.googleusercontent.com/csJ9_Im54YyZtCD0kckWt_8ycFsJh-FkWeyT1684d-s3T0QeuXPzruUqbJbryzM0aW0=s360" >
-  <?php echo "<br> <br> <d> League: {$theLeague}</d>" ?>
-  <?php echo "<br> <br> <d> Rank: {$theRank}</d>" ?>
-  <?php echo "<br> <br> <d> Country: {$theCountry}</d>" ?>
-  <?php echo "<br> <br> <d> Organization: {$theOrganization}</d>" ?>
+
+<h1> Request E </h1>
+  <br> <br> <d> Status: </d>
+  <br> <br> <d> Agency: </d>
+  <table>
+  	<tr>
+    	<th> Name </th>
+        <th> No. of Scouts </th>
+    </tr>
+    <tr>
+    <td> Agency A</td>
+    <td> 2 </td>
+      </tr>
+      <br><br>
+</table>
+
+
+  <br> <br> <d> Organization: </d>
+  <br> <br> <d> No. of Scouts: </d>
   <br> <br>
 
-  <a href="#" class="notification">
-  <span>Transfer Offers</span>
-  <span class="badge">3</span>
-</a>
+ <button class="closeButton" onclick="window.location.href='clubHomePage.php'">Close</button><br><br>
 
 </div>
 
@@ -366,44 +361,35 @@ hr.new1 {
   <button class="requestNewScoutButton" onclick="window.location.href='clubNewRequestPage.php'">Request New Scout</button>
   <br><br>
 
-<?php
-
-$queryTable = "SELECT * FROM Request NATURAL JOIN agency_response WHERE ClubName = '$theClubName'";
-$resultTable = mysqli_query($conn, $queryTable);
- ?>
 <table>
   <tr>
     <th>Name</th>
     <th>Status</th>
-    <th>Organization</th>
-    <th>Position </th>
-    <th>Scout No</th>
-    <th>Agency</th>
-    <th>Action</th>
+    <th></th>
+    <th></th>
   </tr>
-
-  <?php while($rows = mysqli_fetch_assoc($resultTable) ) {
-      ?>
-     <tr>
-      <td> <?php echo $rows['RequestName']?> </td>
-      <td><span class="purpleText"> <?php echo $rows['Answer']?> </span></td>
-      <td> <?php echo $rows['Organization']?>  </td>
-      <td> <?php echo $rows['PlayerPosition']?>  </td>
-      <td> <?php echo $rows['NumberOfScouts']?>  </td>
-      <td> <?php echo $rows['AgencyName']?>  </td>
-      <td>
-         <?php if( $rows['Answer'] == 'rejected'){ ?>
-            <button class="changeAgencyButton" onclick="window.location.href='clubChangeAgency.php'">Change Agency</button>
-         <?php } ?>
-      <?php if( $rows['Answer'] == 'reported'){ ?>
-            <button class="seeReportButton" onclick="window.location.href='clubChangeAgency.php'">See Report</button>
-         <?php } ?>
-      </td>
-     </tr>
-     <tr>
-        <?php
-  }
-  ?>
+  <tr>
+    <td>Request A</td>
+    <td><span class="yellowText">Pending</span></td>
+    <td><a href="http://www.google.com">Details</a><br /></td>
+  </tr>
+  <tr>
+    <td>Request B</td>
+    <td><span class="redText">Rejected</span></td>
+    <td><a href="http://www.google.com">Details</a><br /></td>
+     <td><button class="changeAgencyButton">Change Agency</button></td>
+  </tr>
+  <tr>
+    <td>Request C</td>
+    <td><span class="purpleText">Processing</span></td>
+    <td><a href="http://www.google.com">Details</a><br /></td>
+  </tr>
+  <tr>
+    <td>Request D</td>
+    <td><span class="greenText">Reported</span></td>
+    <td><a href="http://www.google.com">Details</a><br /></td>
+    <td><button class="seeReportButton">See Report</button></td>
+  </tr>
 </table>
 
 
@@ -419,11 +405,5 @@ async function requestFunction(e) {
 
 </script>
 
-<?php
-  function requestFunction() { echo 'Day removed'; }
-
-  if (isset($_GET['remove'])) { return removeday(); }
-?>
 
 </html>
-

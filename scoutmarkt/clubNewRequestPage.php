@@ -1,10 +1,8 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Add icon library -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 <style>
 p{
   color: black;
@@ -33,28 +31,6 @@ margin-top: 10px;
 padding: 15px 20px;
 }
 
-/* buttons */
-
-/* icon button - home */
-.btn {
-  background-color: #008CBA;
-  border: none;
-  color: white;
-  padding: 15px 16px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 4px;
-  margin-right: 280px;
-  position:absolute;
-  top:0;
-  right:0;
-}
-
-/* Darker background on mouse-over */
-.btn:hover {
-  background-color: RoyalBlue;
-}
-
 .profilebutton {
   background-color: #008CBA; /* Blue */
   border: #555555; /* Black */
@@ -69,6 +45,15 @@ padding: 15px 20px;
   position:absolute;
   top:0;
   right:0;
+  border-radius: 10px;
+}
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  border-radius: 10px;
 }
 
 .logoutbutton {
@@ -85,47 +70,15 @@ padding: 15px 20px;
   position:absolute;
   top:0;
   right:0;
+  border-radius: 10px;
 }
 
-.changeAgencyButton {
+.seeRequestButton {
   background-color: #008CBA; /* Blue */
   border: #555555; /* Black */
   color: white;
   padding: 15px 32px;
 
-  text-decoration: none;
-
-  font-size: 11px;
-  position:relative;
-  margin-left: 15px;
-  top:0;
-  right:0;
-}
-
-$('input[type="checkbox"]').on('change', function() {
-   $(this).siblings('input[type="checkbox"]').prop('checked', false);
-});
-
-.submitButton {
-  background-color: #008CBA; /* Blue */
-  border: #555555; /* Black */
-  color: white;
-  padding: 15px 32px;
-
-  text-decoration: none;
-
-  font-size: 11px;
-  position:relative;
-  margin-left: 33px;
-  top:0;
-  right:0;
-}
-
-.seeReportButton {
-  background-color: #008CBA; /* Blue */
-  border: #555555; /* Black */
-  color: white;
-  padding: 15px 32px;
 
   text-decoration: none;
 
@@ -134,9 +87,44 @@ $('input[type="checkbox"]').on('change', function() {
   margin-left: 15px;
   top:0;
   right:0;
+  border-radius: 10px;
 }
 
-.sendRequestButton {
+.requestOptionsButton {
+  background-color: #008CBA; /* Blue */
+  border: #555555; /* Black */
+  color: white;
+  padding: 15px 32px;
+
+
+  text-decoration: none;
+
+  font-size: 13px;
+  position:relative;
+  margin-left: 15px;
+  top:0;
+  right:0;
+  border-radius: 10px;
+}
+
+
+d {
+color: black;
+font-size: 20px;
+margin-top: 0px;
+margin-right: 10px;
+padding: 30px 30px;
+}
+
+smallD {
+color: black;
+font-size: 15px;
+margin-top: 0px;
+margin-right: 10px;
+padding: 30px 30px;
+}
+
+.requestNewScoutButton {
   background-color: #008CBA; /* Blue */
   border: #555555; /* Black */
   color: white;
@@ -146,17 +134,63 @@ $('input[type="checkbox"]').on('change', function() {
   display: inline-block;
   font-size: 16px;
   margin-top: 4px;
-  margin-left: 100px;
+  margin-left: 150px;
+  border-radius: 10px;
 }
 
-d {
-color: black;
-font-size: 15px;
-margin-top: 0px;
-margin-right: 10px;
-padding: 30px 30px;
+.submitButton {
+  background-color: #008CBA; /* Blue */
+  border: #555555; /* Black */
+  color: white;
+  padding: 15px 32px;
+
+  text-decoration: none;
+
+  font-size: 15px;
+  position:relative;
+  margin-left: 50px;
+  top:0;
+  right:0;
+  border-radius: 10px;
 }
 
+.sendRequestButton {
+  background-color: #008CBA; /* Blue */
+  border: #555555; /* Black */
+  color: white;
+  padding: 15px 32px;
+
+  text-decoration: none;
+
+  font-size: 16px;
+  position:relative;
+  margin-left: 400px;
+  top:0;
+  right:0;
+  border-radius: 10px;
+}
+
+.seeScoutsButton {
+  background-color: #FFF0F5; /* Lavender Blush*/
+  border: #555555; /* Black */
+  color: black;
+  padding: 5px 15px;
+  text-decoration: none;
+
+  font-size: 12px;
+  position:relative;
+  margin-left: 10px;
+  top:0;
+  right:0;
+  border-radius: 10px;
+}
+
+.styledimg {
+background-repeat: no-repeat;
+width: 100px;
+height: 100px;
+align: middle;
+}
 
 .center {
   display: block;
@@ -165,27 +199,43 @@ padding: 30px 30px;
   width: 50%;
 }
 
+
 /* Split Part */
 #col-1 {
   position: relative;
-  width: 30%;
+  width: 20%;
   float: left;
   height: 100%;
   background-color: #ffffff;
-  z-index: 1010101010;
-  overflow: scroll;
+    z-index: 1010101010;
+   border: black;
 }
+
+
 
 #col-2 {
   position: relative;
   width: 70%;
-  float: left;
+  float: right;
   height: 100%;
   background-color: #ffffff;
-  z-index: 1010101010
+  z-index: 1010101010;
+
 }
 
-/* Split Part Ends */
+.vertical {
+            border-left: 2px solid black;
+            height: 100%;
+            position:absolute;
+            left: 25%;
+        }
+
+.horizantal {
+            border-top: 2px solid black;
+            height: 100%;
+            position:absolute;
+            top: 10%;
+        }
 
 /*notification*/
 .notification {
@@ -204,6 +254,24 @@ padding: 30px 30px;
   background: red;
 }
 
+
+.closeButton {
+  background-color: #008CBA; /* Blue */
+  border: #555555; /* Black */
+  color: white;
+  padding: 15px 32px;
+
+  text-decoration: none;
+
+  font-size: 15px;
+  position:relative;
+  margin-left: 30px;
+  top:0;
+  right:0;
+   border-radius: 10px;
+}
+
+
 .notification .badge {
   position: absolute;
   top: -10px;
@@ -219,24 +287,17 @@ table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
-  font-size: 13px;
 }
 
 td, th {
-  border: 1px solid #000000;
+  border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
 }
 
-tr:nth-child(odd) {
-  background-color: #b4c3d8;
+tr:nth-child(even) {
+  background-color: #dddddd;
 }
-
-tr:nth-child(even){
-  background-color: #d9e1ec;
-}
-
-
 
 /* text colors */
 
@@ -260,7 +321,10 @@ tr:nth-child(even){
     color: purple;
 }
 
-
+/* Red border */
+hr.new1 {
+  border-top: 2px solid black;
+}
 
 </style>
 </head>
@@ -272,10 +336,12 @@ tr:nth-child(even){
 <title1>New Request</title1>
 <button class="logoutbutton">LogOut</button>
 <button class="profilebutton">Profile</button>
-<button class="btn"><i class="fa fa-home"></i></button>
 </div>
-<br><br>
+
+<hr class="new1">
+
 <div id="col-1">
+
 
   <form action="/action_page.php">
   <table>
@@ -310,9 +376,11 @@ tr:nth-child(even){
 <input type="submit" value="Select Agency" class="submitButton">
       </form>
 
-</div>
 
 </div>
+
+<div class = "vertical"></div>
+
 <div id="col-2">
   <h1></h1>
   <c>
@@ -359,20 +427,19 @@ function createTable()
     document.getElementById('wrapper').innerHTML = theader + tbody + tfooter;
 }
 </script>
-</head>
 
 <body>
 <form name="tablegen">
-<label>No. of Scouts <input type="text" name="rows" id="rows"/></label><br /><br><br>
-<input name="generate" type="button" value="See Scouts" onclick='createTable();'/>
-</form>
+<label>No. of Scouts <input type="text" name="rows" id="rows"/></label>
+<input name="generate" type="button" value="See Scouts" class="seeScoutsButton" onclick='createTable();'/>
+</form><br>
 
 <div id="wrapper"></div>
 
 
 <p id="demo"></p>
 
-     <button class="sendRequestButton">Send Request</button>
+     <button class="sendRequestButton ">Send Request</button>
 
   <br><br>
 
@@ -380,25 +447,20 @@ function createTable()
 </div>
 
 
+
+
+
+</div>
+
 </body>
 
-
 <script>
-
-function scoutFunction() {
-  var x = document.getElementById("noofscouts").value;
-  document.getElementById("demo").innerHTML = x;
-}
-
-function onlyOne(checkbox) {
-    var checkboxes = document.getElementsByName('check')
-    checkboxes.forEach((item) => {
-        if (item !== checkbox) item.checked = false
-    })
-}
+async function requestFunction(e) {
+   e.preventDefault();
+   document.body.innerHTML+= '<br>'+ await(await fetch('?remove=1')).text();
+ }
 
 </script>
-
 
 
 </html>
