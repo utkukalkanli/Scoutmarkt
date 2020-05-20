@@ -87,7 +87,7 @@ button[disabled]{
   border-radius: 10px;
 }
 
-.seeRequestButton {
+.closeButton {
   background-color: #008CBA; /* Blue */
   border: #555555; /* Black */
   color: white;
@@ -184,6 +184,38 @@ padding: 30px 30px;
   border-radius: 10px;
 }
 
+.declinedButton {
+  background-color: #FF6347; /* Red */
+  border: #555555; /* Black */
+  color: black;
+  padding: 7px 7px;
+
+  text-decoration: none;
+
+  font-size: 12px;
+  position:relative;
+  margin-left: 15px;
+  top:0;
+  right:0;
+  border-radius: 10px;
+}
+
+.acceptButton{
+   background-color: #90EE90; /* Green */
+   border: #555555; /* Black */
+   color: black;
+   padding: 7px 7px;
+
+   text-decoration: none;
+
+   font-size: 12px;
+   position:relative;
+   margin-left: 15px;
+   top:0;
+   right:0;
+   border-radius: 10px;
+}
+
 .imageRe{
 background-repeat: no-repeat;
 width: 100px;
@@ -266,11 +298,12 @@ margin-left: 15px;
   color: white;
 }
 
+
 /*table*/
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 100%;
+  width: 90%;
 }
 
 td, th {
@@ -331,9 +364,7 @@ hr.new1 {
         $theOrganization = $rowName['Organization'];
     }
 
-    echo "<title1> Welcome Club {$theClubName} </title1>";
-
-
+    echo "<title1> Transfer Offers </title1>";
 
 ?>
 <button class="logoutbutton">LogOut</button>
@@ -342,16 +373,6 @@ hr.new1 {
 
 <hr class="new1">
 
-<?php
-
-$resultTNo=mysqli_query($conn,"SELECT tof.RespondingClubName as ClubName, COUNT(tof.TransferID) AS total_offer_count FROM
-TransferOffer tof
-JOIN Club c ON c.ClubName = tof.RespondingClubName
-WHERE tof.RespondingClubName = '$theClubName' ");
-$dataTNo=mysqli_fetch_assoc($resultTNo);
-$thenumberis = $dataTNo['total_offer_count'];
-
-?>
 <div id="col-1">
  <h1> </h1>
   <img class = "imageRe" src= "https://lh3.googleusercontent.com/csJ9_Im54YyZtCD0kckWt_8ycFsJh-FkWeyT1684d-s3T0QeuXPzruUqbJbryzM0aW0=s360" >
@@ -361,62 +382,48 @@ $thenumberis = $dataTNo['total_offer_count'];
   <?php echo "<br> <br> <d> Organization: {$theOrganization}</d>" ?>
   <br> <br>
 
-
-  <a href="#" class="notification" onclick="window.location.href='clubTransferOffers.php'">
-  <span>Transfer Offers</span>
-  <span class="badge"><?php echo $thenumberis; ?></span>
-</a>
-
+  <button class="closeButton" onclick="window.location.href='clubHomePage.php'"> Close </button>
 </div>
 
 <div class = "vertical"></div>
 
+
 <div id="col-2">
+   <?php
 
-  <button class="requestNewScoutButton" onclick="window.location.href='clubNewRequestPage.php'">Request New Scout</button>
-  <br><br>
-
-<?php
-
-$queryTable = "SELECT * FROM Request NATURAL JOIN agency_response WHERE ClubName = '$theClubName'";
-$resultTable = mysqli_query($conn, $queryTable);
- ?>
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Status</th>
-    <th>Organization</th>
-    <th>Position </th>
-    <th>Scout No</th>
-    <th>Agency</th>
-    <th>Action</th>
-  </tr>
-
-  <?php while($rows = mysqli_fetch_assoc($resultTable) ) {
-      ?>
+   $transferTable = "SELECT * FROM TransferOffer tof JOIN Club c ON c.ClubName = tof.RespondingClubName AND tof.TransferStatus = 'Active' WHERE c.ClubName = '$theClubName'";
+   $resultTransfer = $conn->query($transferTable);
+    ?>
+   <table>
      <tr>
-      <td> <?php echo $rows['RequestName']?> </td>
-      <td><span class="purpleText"> <?php echo $rows['Answer']?> </span></td>
-      <td> <?php echo $rows['Organization']?>  </td>
-      <td> <?php echo $rows['PlayerPosition']?>  </td>
-      <td> <?php echo $rows['NumberOfScouts']?>  </td>
-      <td> <?php echo $rows['AgencyName']?>  </td>
-      <td>
-         <?php if( $rows['Answer'] == 'rejected'){ ?>
-            <button class="changeAgencyButton" onclick="window.location.href='clubChangeAgency.php'">Change Agency</button>
-         <?php } ?>
-      <?php if( $rows['Answer'] == 'reported'){ ?>
-            <button class="seeReportButton" onclick="window.location.href='clubChangeAgency.php'">See Report</button>
-         <?php } ?>
-      </td>
+       <th>Caller Club</th>
+       <th>Player Name</th>
+       <th>Transfer Type</th>
+       <th>Fee </th>
+       <th>Status</th>
+       <th>Action</th>
      </tr>
-     <tr>
-        <?php
-  }
-  ?>
-</table>
 
-
+     <?php while($rows = mysqli_fetch_assoc($resultTransfer) ) {
+         ?>
+        <tr>
+         <td> <?php echo $rows['CallingClubName']?> </td>
+         <td> <?php echo $rows['PlayerID']?> </td>
+         <td> <?php echo $rows['TransferType']?>  </td>
+         <td> <?php echo $rows['Fee']?>  </td>
+         <td> <?php echo $rows['TransferStatus']?>  </td>
+         <td>  <?php
+          if ($rows['TransferStatus'] == 'Active'){ ?>
+             <button class="acceptButton" onclick="acceptFunction()"> Accept </button>
+             <button class="declinedButton" onclick="declinedFunction()"> Decline </button>
+          <?php } ?>
+         </td>
+        </tr>
+        <tr>
+           <?php
+     }
+     ?>
+   </table>
 </div>
 
 </body>
@@ -429,10 +436,21 @@ async function requestFunction(e) {
 
 </script>
 
-<?php
-  function requestFunction() { echo 'Day removed'; }
+<script>
+function acceptFunction() {
+  <?php
+  $acceptQuery = "UPDATE responds r JOIN Club c ON r.ClubName = c.ClubName AND c.ClubName = '$theClubName' SET ClubAnswer = 'Accepted'";
+  $resultAccept = $conn->query($acceptQuery);
+  ?>
+}
 
-  if (isset($_GET['remove'])) { return removeday(); }
-?>
+function declinedFunction() {
+   <?php
+   $declinedQuery = "UPDATE responds r JOIN Club c ON r.ClubName = c.ClubName AND c.ClubName = '$theClubName' SET ClubAnswer = 'Declined'";
+   $resultDecline = $conn->query($declineQuery);
+   ?>
+}
+</script>
+
 
 </html>
