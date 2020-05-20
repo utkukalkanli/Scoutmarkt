@@ -329,7 +329,7 @@ hr.new1 {
 <div id="col-2">
 
   <h1></h1>
-  <button class="requestNewScoutButton">Request New Scout</button>
+  <button class="requestNewScoutButton" onclick="requestFunction(event)">Request New Scout</button>
   <br><br>
 
 <table>
@@ -366,12 +366,20 @@ hr.new1 {
 
 </div>
 
-
 </body>
 
-
 <script>
+async function requestFunction(e) {
+   e.preventDefault();
+   document.body.innerHTML+= '<br>'+ await(await fetch('?remove=1')).text();
+ }
 
 </script>
+
+<?php
+  function requestFunction() { echo 'Day removed'; }
+
+  if (isset($_GET['remove'])) { return removeday(); }
+?>
 
 </html>
