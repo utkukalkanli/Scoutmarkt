@@ -347,14 +347,13 @@ hr.new1 {
 $resultTNo=mysqli_query($conn,"SELECT tof.RespondingClubName as ClubName, COUNT(tof.TransferID) AS total_offer_count FROM
 TransferOffer tof
 JOIN Club c ON c.ClubName = tof.RespondingClubName
-WHERE tof.RespondingClubName = '$theClubName' ");
+WHERE tof.RespondingClubName = '$theClubName' and tof.TransferStatus = 'Active'");
 $dataTNo=mysqli_fetch_assoc($resultTNo);
 $thenumberis = $dataTNo['total_offer_count'];
 
 ?>
 <div id="col-1">
  <h1> </h1>
-  <img class = "imageRe" src= "https://lh3.googleusercontent.com/csJ9_Im54YyZtCD0kckWt_8ycFsJh-FkWeyT1684d-s3T0QeuXPzruUqbJbryzM0aW0=s360" >
   <?php echo "<br> <br> <d> League: {$theLeague}</d>" ?>
   <?php echo "<br> <br> <d> Rank: {$theRank}</d>" ?>
   <?php echo "<br> <br> <d> Country: {$theCountry}</d>" ?>

@@ -352,7 +352,7 @@ hr.new1 {
 
 <div>
    <?php
-    $clubmail = $_SESSION['themail'];
+    $clubmail = $_SESSION['mailadr'];
     $queryName = "SELECT * FROM Club WHERE ClubEmail = '$clubmail'";
     $resultName = $conn->query($queryName);
     while($rowName = $resultName->fetch_assoc()) {
@@ -375,7 +375,6 @@ hr.new1 {
 
 <div id="col-1">
  <h1> </h1>
-  <img class = "imageRe" src= "https://lh3.googleusercontent.com/csJ9_Im54YyZtCD0kckWt_8ycFsJh-FkWeyT1684d-s3T0QeuXPzruUqbJbryzM0aW0=s360" >
   <?php echo "<br> <br> <d> League: {$theLeague}</d>" ?>
   <?php echo "<br> <br> <d> Rank: {$theRank}</d>" ?>
   <?php echo "<br> <br> <d> Country: {$theCountry}</d>" ?>
@@ -391,7 +390,7 @@ hr.new1 {
 <div id="col-2">
    <?php
 
-   $transferTable = "SELECT * FROM TransferOffer tof JOIN Club c ON c.ClubName = tof.RespondingClubName AND tof.TransferStatus = 'Active' WHERE c.ClubName = '$theClubName'";
+   $transferTable = "SELECT * FROM TransferOffer tof JOIN Club c ON c.ClubName = tof.RespondingClubName AND (tof.TransferStatus = 'Active' OR tof.TransferStatus = 'Completed')WHERE c.ClubName = '$theClubName'";
    $resultTransfer = $conn->query($transferTable);
     ?>
    <table>
@@ -411,11 +410,22 @@ hr.new1 {
          <td> <?php echo $rows['PlayerID']?> </td>
          <td> <?php echo $rows['TransferType']?>  </td>
          <td> <?php echo $rows['Fee']?>  </td>
-         <td> <?php echo $rows['TransferStatus']?>  </td>
+         <td> <?php if ($rows['TransferStatus'] == 'Completed'){
+                     echo 'Active';}
+                    else {
+                       echo $rows['TransferStatus'];
+                    }
+                    ?>
+                   </td>
          <td>  <?php
           if ($rows['TransferStatus'] == 'Active'){ ?>
-             <button class="acceptButton" onclick="acceptFunction()"> Accept </button>
-             <button class="declinedButton" onclick="declinedFunction()"> Decline </button>
+             <button class="acceptButton" onclick="window.location.href='clubTransferAccept.php'"> Accept </button>
+             <button class="declinedButton" onclick="window.location.href='clubTransferDecline.php'"> Decline </button>
+          <?php } ?>
+          <?php
+          if ($rows['TransferStatus'] == 'Completed'){ ?>
+             <button class="acceptButton" onclick="window.location.href='clubTransferAccept.php'"> Accept </button>
+             <button class="declinedButton" onclick="window.location.href='clubTransferDecline.php'"> Decline </button>
           <?php } ?>
          </td>
         </tr>

@@ -360,125 +360,49 @@ hr.new1 {
 
 <hr class="new1">
 
-<div id="col-1">
 
-   <?php
-    $clubmail = $_SESSION['mailadr'];
-    $queryName = "SELECT * FROM Club WHERE ClubEmail = '$clubmail'";
-    $resultName = $conn->query($queryName);
-    while($rowName = $resultName->fetch_assoc()) {
-        //echo "id: " . $row["UserEmail"]. " - Name: " . $row["UserPassword"]. "<br>";
-        $theClubName = $rowName['ClubName'];
-        $theLeague = $rowName['League'];
-        $theRank = $rowName['ClubRank'];
-        $theCountry = $rowName['Country'];
-        $theOrganization = $rowName['Organization'];
-}
+<?php
 
-   $scoutingAgencyTable = "SELECT * FROM ScoutingAgency";
-   $resultsaTable = mysqli_query($conn, $scoutingAgencyTable);
+$selectName = $_SESSION['requestNameSelected'];
+$selectedOrganization =  $_SESSION['organizationSelection'];
+$selectedScoutNumber =  $_SESSION['selectedScoutNumber'];
+$selectedPosition =  $_SESSION['organizationPosition'];
+$selectedName =  $_SESSION['selectedAgencyName'] ;
+
+$infiniteQuery = "INSERT INTO Request VALUES(DEFAULT,'$selectName','$selectedOrganization','$selectedScoutNumber','$selectedPosition','Requested')
+INSERT INTO club_request(RequestID, ClubName)
+SELECT RequestID, ClubName
+FROM Request, Club
+WHERE RequestName = '$selectName' AND ClubName = '$theClubName'";
+
+$thequeryofscoutnewrequest = $conn->query($infiniteQuery);
+
+$lastRequestQuery = "INSERT INTO agency_response (AgencyName,RequestID,ClubName)
+SELECT AgencyName, RequestID, ClubName
+FROM ScoutingAgency, Request, Club
+WHERE AgencyName = '$selectedAgencyName' AND
+RequestID = (SELECT RequestID
+FROM Request
+WHERE RequestName = '$selectName') AND
+ClubName = (SELECT ClubName
+FROM Club
+WHERE ClubName = '$theClubName')";
+
+$otherotherother = $conn->query($lastRequestQuery);
 ?>
 
-  <table>
-     <tr>
-      <th>Name</th>
-      <th>No. of Scouts</th>
-    </tr>
 
-    <?php
-    $counter = -1;
-    ?>
+<div>
 
-    <?php while($rows = mysqli_fetch_assoc($resultsaTable) ) {
-        $counter = $counter + 1;
-        ?>
-       <tr>
-        <td> <?php echo $rows['AgencyName']?> </td>
-        <td> <?php echo $rows['NumberOfScouts']?>  </td>
-       </tr>
-          <?php
-    }
-    ?>
-</table><br><br>
-
-</div>
-
-<div class = "vertical"></div>
-
-<div id="col-2">
-   <?php
-
-   $qryAgency = mysqli_query($conn,"select * from ScoutingAgency"); // select query
-   $dataAgency = mysqli_fetch_array($qryAgency); // fetch data
-
-   if(isset($_POST['allSet'])) // when click on Update button
-   {
-       $agencyNameInput = $_POST['agencyNameInput'];
-       $noOfScoutInput  = $_POST['noOfScoutInput'];
-       $organizationInput = $_POST['organizationInput'];
-       $positionInput = $_POST['positionInput'];
-       $requestnameInput = $_POST['requestnameInput'];
-
-       $query01Player = "INSERT INTO Request(RequestID,RequestName,Organization,NumberOfScouts,PlayerPosition,RequestStatus) VALUES(DEFAULT,'$requestnameInput','$organizationInput','$noOfScoutInput','$positionInput','Requested')";
-       $result01Player = mysqli_query($conn, $query01Player);
-
-       $query02Player = "INSERT INTO club_request(RequestID, ClubName) SELECT RequestID, ClubName FROM Request, Club WHERE RequestName = '$requestnameInput' AND ClubName = '$theClubName';";
-       $result02Player = mysqli_query($conn, $query02Player);
-
-       $query03Player = "INSERT INTO agency_response (AgencyName,RequestID,ClubName)
-       SELECT AgencyName, RequestID, ClubName
-       FROM ScoutingAgency, Request, Club
-       WHERE AgencyName = '$agencyNameInput' AND
-       RequestID = (SELECT RequestID
-          FROM Request
-          WHERE RequestName = '$requestnameInput') AND
-          ClubName = (SELECT ClubName
-             FROM Club
-             WHERE ClubName = '$theClubName')";
-       $result03Player = mysqli_query($conn, $query03Player);
-   }
-
-    ?>
-
-   <form method="POST">
-    <d> Information on your new request: </d><br><br>
-         <input type="text" name="requestnameInput" placeholder="Enter Request Name" Required>
-     <input type="text" name="agencyNameInput"  placeholder="Enter Agency" Required>
-     <input type="text" name="noOfScoutInput" placeholder="Enter No. of Scouts" Required>
-     <input type="text" name="organizationInput" placeholder="Enter Organization" Required>
-    <input type="text" name="positionInput" placeholder="Enter Position" Required>
-
-     <input type="submit" name="allSet" value="Select">
-   </form>
-
-     <button class="addButton" onclick="window.location.href='clubHomePage.php'"> Create & Close </button>
-
+   <title1> New request is created. </title1>
+   <button class = "closeButton" onclick="window.location.href='clubHomePage.php'"> OK. </button>
 
 </div>
 
 </div>
-
-
 </body>
 
 <script>
-async function requestFunction(e) {
-   e.preventDefault();
-   document.body.innerHTML+= '<br>'+ await(await fetch('?remove=1')).text();
- }
-</script>
-
-<script type="text/javascript">
-
-function checkOnlyOne(b){
-
-var x = document.getElementsByClassName('daychecks');
-var i;
-
-for (i = 0; i < x.length; i++) {
-  if(x[i].value != b) x[i].checked = false;
-}
-}
 
 </script>
 

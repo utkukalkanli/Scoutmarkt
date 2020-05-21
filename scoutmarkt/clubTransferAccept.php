@@ -1,5 +1,7 @@
+<!DOCTYPE html>
 <?php
-   session_start();
+
+   session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
    $dbhost = "127.0.0.1";
    $dbuser = "root";
    $dbpass = "";
@@ -13,10 +15,8 @@
    }
 
 ?>
-<!DOCTYPE html>
 <html>
 <head>
-   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <style>
 p{
   color: black;
@@ -87,7 +87,7 @@ button[disabled]{
   border-radius: 10px;
 }
 
-.seeRequestButton {
+.closeButton {
   background-color: #008CBA; /* Blue */
   border: #555555; /* Black */
   color: white;
@@ -148,11 +148,11 @@ padding: 30px 30px;
   display: inline-block;
   font-size: 16px;
   margin-top: 4px;
-  margin-left: 150px;
+  margin-left: 350px;
   border-radius: 10px;
 }
 
-.submitButton {
+.changeAgencyButton {
   background-color: #008CBA; /* Blue */
   border: #555555; /* Black */
   color: white;
@@ -160,16 +160,16 @@ padding: 30px 30px;
 
   text-decoration: none;
 
-  font-size: 15px;
+  font-size: 11px;
   position:relative;
-  margin-left: 50px;
+  margin-left: 15px;
   top:0;
   right:0;
   border-radius: 10px;
 }
 
-.sendRequestButton {
-  background-color: #008CBA; /* Blue */
+.seeReportButton {
+  background-color: #90EE90; /* Blue */
   border: #555555; /* Black */
   color: white;
   padding: 15px 32px;
@@ -178,39 +178,50 @@ padding: 30px 30px;
 
   font-size: 16px;
   position:relative;
-  margin-left: 350px;
+  margin-left: 15px;
   top:0;
   right:0;
   border-radius: 10px;
 }
 
-.seeScoutsButton {
-  background-color: #FFF0F5; /* Lavender Blush*/
+.declinedButton {
+  background-color: #FF6347; /* Red */
   border: #555555; /* Black */
   color: black;
-  padding: 5px 15px;
+  padding: 7px 7px;
+
   text-decoration: none;
 
   font-size: 12px;
   position:relative;
-  margin-left: 10px;
+  margin-left: 15px;
   top:0;
   right:0;
   border-radius: 10px;
 }
 
-.styledimg {
+.acceptButton{
+   background-color: #90EE90; /* Green */
+   border: #555555; /* Black */
+   color: black;
+   padding: 7px 7px;
+
+   text-decoration: none;
+
+   font-size: 12px;
+   position:relative;
+   margin-left: 15px;
+   top:0;
+   right:0;
+   border-radius: 10px;
+}
+
+.imageRe{
 background-repeat: no-repeat;
 width: 100px;
 height: 100px;
 align: middle;
-}
-
-.listmiddle{
-   display: block;
-   margin-left: auto;
-   margin-right: auto;
-     width: 50%;
+margin-left: 15px;
 }
 
 .center {
@@ -224,7 +235,7 @@ align: middle;
 /* Split Part */
 #col-1 {
   position: relative;
-  width: 30%;
+  width: 20%;
   float: left;
   height: 100%;
   background-color: #ffffff;
@@ -236,7 +247,7 @@ align: middle;
 
 #col-2 {
   position: relative;
-  width: 60%;
+  width: 70%;
   float: right;
   height: 100%;
   background-color: #ffffff;
@@ -248,7 +259,7 @@ align: middle;
             border-left: 2px solid black;
             height: 100%;
             position:absolute;
-            left: 35%;
+            left: 25%;
         }
 
 .horizantal {
@@ -257,6 +268,8 @@ align: middle;
             position:absolute;
             top: 10%;
         }
+
+/* Split Part Ends */
 
 /*notification*/
 .notification {
@@ -275,23 +288,6 @@ align: middle;
   background: red;
 }
 
-.closeButton {
-  background-color: #008CBA; /* Blue */
-  border: #555555; /* Black */
-  color: white;
-  padding: 15px 32px;
-
-  text-decoration: none;
-
-  font-size: 15px;
-  position:relative;
-  margin-left: 30px;
-  top:0;
-  right:0;
-   border-radius: 10px;
-}
-
-
 .notification .badge {
   position: absolute;
   top: -10px;
@@ -302,11 +298,12 @@ align: middle;
   color: white;
 }
 
+
 /*table*/
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 100%;
+  width: 90%;
 }
 
 td, th {
@@ -348,20 +345,12 @@ hr.new1 {
 
 </style>
 </head>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <body>
 
 <div>
-<title1>New Request</title1>
-<button class="logoutbutton">LogOut</button>
-<button class="profilebutton">Profile</button>
-</div>
-
-<hr class="new1">
-
-<div id="col-1">
-
    <?php
     $clubmail = $_SESSION['mailadr'];
     $queryName = "SELECT * FROM Club WHERE ClubEmail = '$clubmail'";
@@ -373,91 +362,37 @@ hr.new1 {
         $theRank = $rowName['ClubRank'];
         $theCountry = $rowName['Country'];
         $theOrganization = $rowName['Organization'];
-}
-
-   $scoutingAgencyTable = "SELECT * FROM ScoutingAgency";
-   $resultsaTable = mysqli_query($conn, $scoutingAgencyTable);
-?>
-
-  <table>
-     <tr>
-      <th>Name</th>
-      <th>No. of Scouts</th>
-    </tr>
-
-    <?php
-    $counter = -1;
-    ?>
-
-    <?php while($rows = mysqli_fetch_assoc($resultsaTable) ) {
-        $counter = $counter + 1;
-        ?>
-       <tr>
-        <td> <?php echo $rows['AgencyName']?> </td>
-        <td> <?php echo $rows['NumberOfScouts']?>  </td>
-       </tr>
-          <?php
     }
-    ?>
-</table><br><br>
 
+    echo "<title1> Transfer Offers </title1>";
+
+?>
+<button class="logoutbutton">LogOut</button>
+<button class="profilebutton">Profile</button>
+</div>
+
+<hr class="new1">
+
+<div id="col-1">
+ <h1> </h1>
+  <?php echo "<br> <br> <d> League: {$theLeague}</d>" ?>
+  <?php echo "<br> <br> <d> Rank: {$theRank}</d>" ?>
+  <?php echo "<br> <br> <d> Country: {$theCountry}</d>" ?>
+  <?php echo "<br> <br> <d> Organization: {$theOrganization}</d>" ?>
+  <br> <br>
+
+  <button class="closeButton" onclick="window.location.href='clubHomePage.php'"> Close </button>
 </div>
 
 <div class = "vertical"></div>
 
+
 <div id="col-2">
    <?php
-
-   $qryAgency = mysqli_query($conn,"select * from ScoutingAgency"); // select query
-   $dataAgency = mysqli_fetch_array($qryAgency); // fetch data
-
-   if(isset($_POST['allSet'])) // when click on Update button
-   {
-       $agencyNameInput = $_POST['agencyNameInput'];
-       $noOfScoutInput  = $_POST['noOfScoutInput'];
-       $organizationInput = $_POST['organizationInput'];
-       $positionInput = $_POST['positionInput'];
-       $requestnameInput = $_POST['requestnameInput'];
-
-       $query01Player = "INSERT INTO Request(RequestID,RequestName,Organization,NumberOfScouts,PlayerPosition,RequestStatus) VALUES(DEFAULT,'$requestnameInput','$organizationInput','$noOfScoutInput','$positionInput','Requested')";
-       $result01Player = mysqli_query($conn, $query01Player);
-
-       $query02Player = "INSERT INTO club_request(RequestID, ClubName) SELECT RequestID, ClubName FROM Request, Club WHERE RequestName = '$requestnameInput' AND ClubName = '$theClubName';";
-       $result02Player = mysqli_query($conn, $query02Player);
-
-       $query03Player = "INSERT INTO agency_response (AgencyName,RequestID,ClubName)
-       SELECT AgencyName, RequestID, ClubName
-       FROM ScoutingAgency, Request, Club
-       WHERE AgencyName = '$agencyNameInput' AND
-       RequestID = (SELECT RequestID
-          FROM Request
-          WHERE RequestName = '$requestnameInput') AND
-          ClubName = (SELECT ClubName
-             FROM Club
-             WHERE ClubName = '$theClubName')";
-       $result03Player = mysqli_query($conn, $query03Player);
-   }
-
-    ?>
-
-   <form method="POST">
-    <d> Information on your new request: </d><br><br>
-         <input type="text" name="requestnameInput" placeholder="Enter Request Name" Required>
-     <input type="text" name="agencyNameInput"  placeholder="Enter Agency" Required>
-     <input type="text" name="noOfScoutInput" placeholder="Enter No. of Scouts" Required>
-     <input type="text" name="organizationInput" placeholder="Enter Organization" Required>
-    <input type="text" name="positionInput" placeholder="Enter Position" Required>
-
-     <input type="submit" name="allSet" value="Select">
-   </form>
-
-     <button class="addButton" onclick="window.location.href='clubHomePage.php'"> Create & Close </button>
-
-
+   $acceptQuery = "UPDATE responds r JOIN Club c ON r.ClubName = c.ClubName AND c.ClubName = '$theClubName' SET ClubAnswer = 'Accepted'";
+   $resultAccept = $conn->query($acceptQuery);
+   ?>
 </div>
-
-</div>
-
 
 </body>
 
@@ -466,19 +401,6 @@ async function requestFunction(e) {
    e.preventDefault();
    document.body.innerHTML+= '<br>'+ await(await fetch('?remove=1')).text();
  }
-</script>
-
-<script type="text/javascript">
-
-function checkOnlyOne(b){
-
-var x = document.getElementsByClassName('daychecks');
-var i;
-
-for (i = 0; i < x.length; i++) {
-  if(x[i].value != b) x[i].checked = false;
-}
-}
 
 </script>
 
