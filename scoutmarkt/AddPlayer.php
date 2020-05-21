@@ -377,8 +377,7 @@ hr.new2 {
 
 <div id="col-1">
    <?php
-   echo "<h1> Current Task: </h1>";
-
+   echo "<h1> Current Task:  </h1>";
    if ( $theAvailability == true ){
       echo "<d> None. </d>";
    }
@@ -389,12 +388,6 @@ hr.new2 {
    <br><br>
 
    <?php
-   $queryScoutID = "select * from Report where ScoutID = '$theScoutID'";
-   $resultReportID = $conn->query($queryScoutID);
-    while($rowName = $resultReportID->fetch_assoc()) {
-      $theReportID = $rowName['ReportID'];
-    }
-
 
    $queryTable = "SELECT * FROM assigns a JOIN Request r ON a.RequestID = r.RequestID JOIN Scout s ON s.ScoutID = a.ScoutID WHERE s.ScoutEmail = '$scoutmail'";
    $resultTable = mysqli_query($conn, $queryTable);
@@ -476,33 +469,16 @@ $resultPlayer = mysqli_query($conn, $queryPlayer);
 
 <?php
 
-$qry = mysqli_query($conn,"select * from talented_players"); // select query
+    $playerIDIN = $_SESSION["playerIDinput"];
+    $playerCommIN  = $_SESSION['playerCommentinput'];
+    $playerRateIN= $_SESSION['playerRateinput'];
+    $reportIDIN = $_SESSION['imReportID'];
 
-$data = mysqli_fetch_array($qry); // fetch data
+    $edit = mysqli_query(	"INSERT INTO talented_players(ReportID, PlayerID, PlayerComment, PlayerRate) VALUES ('$reportIDIN', '$playerIDIN', '$playerCommIN', '$playerRateIN')");
+    $conn->query($edit);
 
-if(isset($_POST['update'])) // when click on Update button
-{
-    $playerIDIN = $_POST['playerIDinput'];
-    $playerCommIN  = $_POST['playerCommentinput'];
-    $playerRateIN= $_POST['playerRateinput'];
+?>
 
-    $_SESSION["playerIDinput"] = $playerIDIN;
-    $_SESSION['playerCommentinput'] = $playerCommIN;
-    $_SESSION['playerRateinput'] = $playerRateIN;
-    $edit = mysqli_query($conn,	"INSERT INTO talented_players(ReportID, PlayerID, PlayerComment, PlayerRate) VALUES ('$theReportID', '$playerIDIN', '$playerCommIN', '$playerRateIN')");
-}
-
- ?>
-<br><br>
-<form method="POST">
- <d> Information on your selected player: </d><br><br>
-  <input type="text" name="playerIDinput"  placeholder="Enter Player ID" Required>
-  <input type="text" name="playerCommentinput" placeholder="Enter Comment" Required>
-<input type="text" name="playerRateinput" placeholder="Rate (0-10)" Required>
-  <input type="submit" name="update" value="Update">
-</form>
-
-  <button class="addButton" onclick="window.location.href='scoutHomePage.php'"> Save & Close </button>
 </div>
 
 

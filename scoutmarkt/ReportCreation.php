@@ -54,6 +54,14 @@ $someQuery= " INSERT INTO Report(ReportID, ScoutID,ReportName, ReportTime) VALUE
 $conn->query($someQuery);
 $change2Query = "UPDATE Request r SET r.RequestStatus = 'Creating' WHERE r.RequestID = '$theTaskId'";
 $conn->query($change2Query);
+
+$getReportId = "select ReportID from Report where ReportName = '$theTask'";
+$resultName = $conn->query($getReportId);
+while($rowName = $resultName->fetch_assoc()) {
+    $reportID = $rowName['ReportID'];
+}
+
+$_SESSION['imReportID'] = $reportID; 
 ?>
 
 <button class = "insideButton" onclick = "window.location.href='scoutHomePage.php'"> OK </button>

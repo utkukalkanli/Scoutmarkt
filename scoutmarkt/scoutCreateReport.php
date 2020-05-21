@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <?php
    session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
    $dbhost = "127.0.0.1";
@@ -14,6 +12,7 @@
      die("Connection failed: " . $conn->connect_error);
    }
 ?>
+<!DOCTYPE html>
 
 <html>
 <head>
