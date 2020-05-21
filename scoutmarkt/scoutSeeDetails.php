@@ -411,7 +411,7 @@ hr.new2 {
            <tr>
             <td> <?php echo $rows['RequestName']?> </td>
             <td> <button class="seeButton" onclick="window.location.href='scoutSeeDetails.php'">Details</button> </td>
-            <td> <button class="submitButton" onclick="window.location.href='clubChangeAgency.php'">Submit</button> </td>
+            <td> <button class="submitButton" onclick="window.location.href='submitReport.php'">Submit</button> </td>
            </tr>
            <tr>
               <?php
@@ -506,10 +506,7 @@ if(isset($_POST['update'])) // when click on Update button
 </div>
 
 
-
-
 </body>
-
 
 <script>
 </script>

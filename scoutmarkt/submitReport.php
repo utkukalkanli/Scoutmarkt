@@ -350,7 +350,18 @@ hr.new1 {
 <div class = "vertical"></div>
 
 <div id="col-2">
+<?php
 
+$sendReportQuery = "SELECT ReportID, ClubName FROM assigns NATURAL JOIN club_request NATURAL JOIN Report";
+$resultReport = $conn->query($sendReportQuery);
+while($rowName = $resultReport->fetch_assoc()) {
+    $clubNameForReport = $rowName['ClubName'];
+    $reportIDForReport = $rowName['ReportID'];
+}
+
+$insideReport =  "INSERT INTO evaluate_report(ReportID,ClubName) VALUES('$reportIDForReport','$clubNameForReport')" ;
+$conn->query($insideReport);
+?>
 
 </div>
 
