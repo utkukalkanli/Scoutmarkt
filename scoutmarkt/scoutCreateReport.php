@@ -441,24 +441,20 @@ while($rowName = $resultName->fetch_assoc()) {
 
 <d> Report Comment: </d>
   <input type="text" id="commentID" name="commentID" method="post">
-  <button class="button" onclick="sendReport">Create</button>
+  <button class = "playerButton" onclick="window.location.href='ReportCreation.php'">Create Report</button>
 
+<p id="demo"></p>
 </div>
 
-
-
-
+<?php
+   $commentIDVariable = "deneme";
+   $_SESSION['commentIDT'] = $commentIDVariable;
+?>
 </body>
 
 
 <script>
-sendReport(){
-   <?php
-   $reportComment = $_POST["commentID"];
-   $scoutName = "INSERT INTO Report VALUES (DEFAULT, (SELECT ScoutID FROM Scout
-   WHERE ScoutName = '$scoutName'), '$theRequestName', '$reportComment');";
-   ?>
-}
+
 </script>
 
 </html>

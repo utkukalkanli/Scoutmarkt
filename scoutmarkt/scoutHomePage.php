@@ -322,17 +322,23 @@ hr.new1 {
             ?>
            <tr>
             <td> <?php echo $rows['RequestName']?> </td>
-            <td> <?php
-            if ( $rows['RequestStatus'] == 'Ongoing'){ ?>
-            <button class="seeButton" onclick="window.location.href='scoutCreateReport.php'" <?php $_SESSION['seeTaskID'] = $rows['RequestID']?> >Create Report</button> </td>
-            <?php } ?>
-            <?php
-            if ( $rows['RequestStatus'] == 'Creating'){ ?>
-            <td> <button class="submitButton" onclick="window.location.href='scoutSeeDetails.php'" id = <?php echo $rows['RequestID']?> name = <?php echo $rows['RequestName']?> > Edit </button> </td>
-            <?php } ?>
-            <td> <button class="submitButton" onclick="window.location.href='clubChangeAgency.php'" id = <?php echo $rows['RequestID']?> name = <?php echo $rows['RequestName']?> >Submit</button> </td>
-           </tr>
-           <tr>
+            <td>
+
+               <?php
+               if ( $rows['RequestStatus'] == 'Ongoing'){ ?>
+                  <button class="seeButton" onclick="window.location.href='scoutCreateReport.php'" <?php $_SESSION['seeTaskID'] = $rows['RequestID']?> >Create Report</button>
+               <?php } ?>
+
+               <?php
+               if ( $rows['RequestStatus'] == 'Creating'){ ?>
+                  <button class="seeButton" onclick="window.location.href='scoutSeeDetails.php'" <?php $_SESSION['seeTaskID'] = $rows['RequestID']?> >See Report</button>
+               <?php } ?>
+            </td>
+
+            <td>
+               <button class="submitButton" onclick="window.location.href='clubChangeAgency.php'" id = <?php echo $rows['RequestID']?> name = <?php echo $rows['RequestName']?> >Submit</button>
+            </td>
+         </tr>
               <?php
         }
         ?>
