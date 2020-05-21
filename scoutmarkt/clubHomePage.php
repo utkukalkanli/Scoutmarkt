@@ -5,7 +5,7 @@
    $dbhost = "127.0.0.1";
    $dbuser = "root";
    $dbpass = "";
-   $db = "scoutmarkt_db";
+   $db = "scoutmarkt_datab";
 
    // Create connection
    $conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
@@ -319,7 +319,7 @@ hr.new1 {
 
 <div>
    <?php
-    $clubmail = $_SESSION['themail'];
+    $clubmail = $_SESSION['mailadr'];
     $queryName = "SELECT * FROM Club WHERE ClubEmail = '$clubmail'";
     $resultName = $conn->query($queryName);
     while($rowName = $resultName->fetch_assoc()) {

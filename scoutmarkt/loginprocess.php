@@ -7,7 +7,7 @@ $_SESSION['mailadr'] = $usermail;
 $dbhost = "127.0.0.1";
 $dbuser = "root";
 $dbpass = "";
-$db = "scoutmarkt_db";
+$db = "scoutmarkt_datab";
 
 // Create connection
 $conn = new mysqli($dbhost, $dbuser, $dbpass, $db);

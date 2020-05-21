@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <?php
    session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
    $dbhost = "127.0.0.1";
@@ -13,6 +14,7 @@
      die("Connection failed: " . $conn->connect_error);
    }
 ?>
+
 <html>
 <head>
 <style>
@@ -97,6 +99,57 @@ button[disabled]{
   right:0;
 }
 
+.sendReportButton {
+  background-color: #008CBA; /* Blue */
+  border: #555555; /* Black */
+  color: white;
+  padding: 15px 32px;
+
+  text-decoration: none;
+
+  font-size: 16px;
+  position:relative;
+  margin-bottom: 300px;
+  top:0;
+  right:0;
+}
+
+.insideButton {
+  background-color: #008CBA; /* Blue */
+  border: #555555; /* Black */
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 12px;
+  position:relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.addButton {
+  background-color: #008CBA; /* Blue */
+  border: #555555; /* Black */
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 16px;
+  position:relative;
+  margin-top: 100px;
+  margin-left: auto;
+}
+
+.playerButton {
+  background-color: #9370DB; /* Purple */
+  border: #555555; /* Black */
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 16px;
+  position:relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .seeButton {
   background-color: #87CEFA; /* Light Blue */
   border: #555555; /* Black */
@@ -126,7 +179,6 @@ button[disabled]{
    top:0;
    right:0;
 }
-
 
 d {
 color: black;
@@ -165,13 +217,38 @@ padding: 30px 30px;
 
 #col-2 {
   position: relative;
-  width: 40%;
+  width: 54%;
   float: right;
   height: 100%;
   background-color: #ffffff;
   z-index: 1010101010;
 
 }
+
+#row-2 {
+
+  position: relative;
+  width: 100%;
+  float: top;
+  height: 10%;
+  background-color: #ffffff;
+  z-index: 1010101010;
+
+}
+
+#row-1 {
+
+  position: relative;
+  width: 100%;
+  float: right;
+  height: 90%;
+  background-color: #000000;
+  z-index: 1010101010;
+
+}
+
+
+
 
 .vertical {
             border-left: 2px solid black;
@@ -264,29 +341,34 @@ hr.new1 {
   border-top: 2px solid black;
 }
 
+hr.new2 {
+  margin-bottom: 0px;
+  border-top: 2px solid black;
+}
+
+
 </style>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <body>
 
+   <div>
+      <?php
+       $scoutmail = $_SESSION['mailadr'];
+       $queryName = "SELECT * FROM Scout WHERE ScoutEmail = '$scoutmail'";
+       $resultName = $conn->query($queryName);
+
+       while($rowName = $resultName->fetch_assoc()) {
+           //echo "id: " . $row["UserEmail"]. " - Name: " . $row["UserPassword"]. "<br>";
+           $theScoutName = $rowName['ScoutName'];
+           $theScoutID = $rowName['ScoutID'];
+           $theAvailability = $rowName['Availability'];
+           $theTask = $rowName['Task'];
+       }
+        echo "<title1> Welcome {$theScoutName} </title1>";
+   ?>
 <div>
-   <?php
-    $scoutmail = $_SESSION['mailadr'];
-    $queryName = "SELECT * FROM Scout WHERE ScoutEmail = '$scoutmail'";
-    $resultName = $conn->query($queryName);
-
-    while($rowName = $resultName->fetch_assoc()) {
-        //echo "id: " . $row["UserEmail"]. " - Name: " . $row["UserPassword"]. "<br>";
-        $theScoutName = $rowName['ScoutName'];
-        $theScoutID = $rowName['ScoutID'];
-        $theAvailability = $rowName['Availability'];
-        $theTask = $rowName['Task'];
-    }
-
-    echo "<title1> Welcome {$theScoutName} </title1>";
-
-?>
 <button class="logoutbutton">LogOut</button>
 <button class="profilebutton">Profile</button>
 <button class="btn"><i class="fa fa-home"></i></button>
@@ -296,25 +378,25 @@ hr.new1 {
 
 <div id="col-1">
    <?php
-    echo "<h1> Current Task:  </h1>";
-    if ( $theAvailability == true ){
+   echo "<h1> Current Task:  </h1>";
+   if ( $theAvailability == true ){
       echo "<d> None. </d>";
    }
    else{
       echo "<d> {$theTask} </d>";
    }
- ?>
- <br><br>
+   ?>
+   <br><br>
 
- <?php
+   <?php
 
- $queryTable = "SELECT * FROM assigns a JOIN Request r ON a.RequestID = r.RequestID JOIN Scout s ON s.ScoutID = a.ScoutID WHERE s.ScoutEmail = '$scoutmail'";
- $resultTable = mysqli_query($conn, $queryTable);
- ?>
+   $queryTable = "SELECT * FROM assigns a JOIN Request r ON a.RequestID = r.RequestID JOIN Scout s ON s.ScoutID = a.ScoutID WHERE s.ScoutEmail = '$scoutmail'";
+   $resultTable = mysqli_query($conn, $queryTable);
+   ?>
 
    <table>
-  	<tr>
-    	<th> Task </th>
+   <tr>
+      <th> Task </th>
         <th> Details </th>
         <th> Submit </th>
 
@@ -322,15 +404,8 @@ hr.new1 {
             ?>
            <tr>
             <td> <?php echo $rows['RequestName']?> </td>
-            <td> <?php
-            if ( $rows['RequestStatus'] == 'Ongoing'){ ?>
-            <button class="seeButton" onclick="window.location.href='scoutCreateReport.php'" <?php $_SESSION['seeTaskID'] = $rows['RequestID']?> >Create Report</button> </td>
-            <?php } ?>
-            <?php
-            if ( $rows['RequestStatus'] == 'Creating'){ ?>
-            <td> <button class="submitButton" onclick="window.location.href='scoutSeeDetails.php'" id = <?php echo $rows['RequestID']?> name = <?php echo $rows['RequestName']?> > Edit </button> </td>
-            <?php } ?>
-            <td> <button class="submitButton" onclick="window.location.href='clubChangeAgency.php'" id = <?php echo $rows['RequestID']?> name = <?php echo $rows['RequestName']?> >Submit</button> </td>
+            <td> <button class="seeButton" onclick="window.location.href='scoutSeeDetails.php'">Details</button> </td>
+            <td> <button class="submitButton" onclick="window.location.href='clubChangeAgency.php'">Submit</button> </td>
            </tr>
            <tr>
               <?php
@@ -344,16 +419,46 @@ hr.new1 {
 <div class = "vertical"></div>
 
 <div id="col-2">
+<?php $theTaskId = $_SESSION['seeTaskID'];
 
+$queryName = "SELECT * FROM Request WHERE RequestID = '$theTaskId'";
+$resultName = $conn->query($queryName);
+
+while($rowName = $resultName->fetch_assoc()) {
+    //echo "id: " . $row["UserEmail"]. " - Name: " . $row["UserPassword"]. "<br>";
+    $theRequestName = $rowName['RequestName'];
+    $theOrganization= $rowName['Organization'];
+    $theNoOfScouts = $rowName['NumberOfScouts'];
+    $thePlayerPosition = $rowName['PlayerPosition'];
+    $theRequestStatus= $rowName['RequestStatus'];
+}
+?>
+<d> Request Name: <?php echo $theRequestName ?></d><br>
+<d> Organization: <?php echo $theOrganization ?></d><br>
+<d> Player Position: <?php echo $theOrganization ?> </d><br>
+<d> Request Status: <?php echo $theRequestStatus ?> </d>
+<br><br><br><br>
+
+<d> Report Comment: </d>
+  <input type="text" id="commentID" name="commentID" method="post">
+  <button class="button" onclick="sendReport">Create</button>
 
 </div>
+
+
 
 
 </body>
 
 
 <script>
-
+sendReport(){
+   <?php
+   $reportComment = $_POST["commentID"];
+   $scoutName = "INSERT INTO Report VALUES (DEFAULT, (SELECT ScoutID FROM Scout
+   WHERE ScoutName = '$scoutName'), '$theRequestName', '$reportComment');";
+   ?>
+}
 </script>
 
 </html>
