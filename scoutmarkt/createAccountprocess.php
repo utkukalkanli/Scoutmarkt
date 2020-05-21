@@ -24,5 +24,5 @@ if ( $result->num_row > 0 ){
    echo " successfully ";
 }
 
-
+close($conn);
 ?>

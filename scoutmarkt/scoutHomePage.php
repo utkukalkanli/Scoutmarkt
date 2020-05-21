@@ -1,4 +1,18 @@
 <!DOCTYPE html>
+<?php
+   session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+   $dbhost = "127.0.0.1";
+   $dbuser = "root";
+   $dbpass = "";
+   $db = "scoutmarkt_db";
+
+   // Create connection
+   $conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
+   // Check connection
+   if ($conn->connect_error) {
+     die("Connection failed: " . $conn->connect_error);
+   }
+?>
 <html>
 <head>
 <style>
@@ -83,31 +97,34 @@ button[disabled]{
   right:0;
 }
 
-.sendReportButton {
-  background-color: #008CBA; /* Blue */
+.seeButton {
+  background-color: #87CEFA; /* Light Blue */
   border: #555555; /* Black */
   color: white;
-  padding: 15px 32px;
+  padding: 10px 10px;
 
   text-decoration: none;
 
-  font-size: 16px;
+  font-size: 12px;
   position:relative;
-  margin-bottom: 300px;
+  margin-bottom: 10px;
   top:0;
   right:0;
 }
 
-.insideButton {
-  background-color: #008CBA; /* Blue */
-  border: #555555; /* Black */
-  color: white;
-  padding: 10px 20px;
-  text-decoration: none;
-  font-size: 12px;
-  position:relative;
-  margin-left: auto;
-  margin-right: auto;
+.submitButton {
+   background-color: #191970; /* Midnight Blue */
+   border: #555555; /* Black */
+   color: white;
+   padding: 10px 10px;
+
+   text-decoration: none;
+
+   font-size: 12px;
+   position:relative;
+   margin-bottom: 10px;
+   top:0;
+   right:0;
 }
 
 
@@ -254,7 +271,22 @@ hr.new1 {
 <body>
 
 <div>
-<title1>Welcome SCOUT NAME </title1>
+   <?php
+    $scoutmail = $_SESSION['mailadr'];
+    $queryName = "SELECT * FROM Scout WHERE ScoutEmail = '$scoutmail'";
+    $resultName = $conn->query($queryName);
+
+    while($rowName = $resultName->fetch_assoc()) {
+        //echo "id: " . $row["UserEmail"]. " - Name: " . $row["UserPassword"]. "<br>";
+        $theScoutName = $rowName['ScoutName'];
+        $theScoutID = $rowName['ScoutID'];
+        $theAvailability = $rowName['Availability'];
+        $theTask = $rowName['Task'];
+    }
+
+    echo "<title1> Welcome {$theScoutName} </title1>";
+
+?>
 <button class="logoutbutton">LogOut</button>
 <button class="profilebutton">Profile</button>
 <button class="btn"><i class="fa fa-home"></i></button>
@@ -263,18 +295,41 @@ hr.new1 {
 <hr class="new1">
 
 <div id="col-1">
- <h1> From: Agency A </h1><br>
+   <?php
+    echo "<h1> Current Task:  </h1>";
+    if ( $theAvailability == true ){
+      echo "<d> None. </d>";
+   }
+   else{
+      echo "<d> {$theTask} </d>";
+   }
+ ?>
+ <br><br>
+
+ <?php
+
+ $queryTable = "SELECT * FROM assigns a JOIN Request r ON a.RequestID = r.RequestID JOIN Scout s ON s.ScoutID = a.ScoutID WHERE s.ScoutEmail = '$scoutmail'";
+ $resultTable = mysqli_query($conn, $queryTable);
+ ?>
+
    <table>
   	<tr>
     	<th> Task </th>
-        <th> See </th>
+        <th> Details </th>
         <th> Submit </th>
 
-        <tr>
-    <td> Request A </td>
-    <td> <button class="insideButton">See</button> </td>
-    <td> <button class="insideButton">Submit</button> </td>
-    </tr>
+        <?php while($rows = mysqli_fetch_assoc($resultTable) ) {
+            ?>
+           <tr>
+            <td> <?php echo $rows['RequestName']?> </td>
+            <td> <button class="seeButton" onclick="window.location.href='clubChangeAgency.php'">Details</button> </td>
+            <td> <button class="submitButton" onclick="window.location.href='clubChangeAgency.php'">Submit</button> </td>
+           </tr>
+           <tr>
+              <?php
+        }
+        ?>
+
    </table>
 
 </div>

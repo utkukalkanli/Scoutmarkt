@@ -1,5 +1,4 @@
 <?php
-
 // connection
 
 $dbhost = "127.0.0.1";
@@ -27,5 +26,5 @@ if(mysqli_query($conn, $sql)){
 } else{
     echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
 }
-
+close($conn);
 ?>

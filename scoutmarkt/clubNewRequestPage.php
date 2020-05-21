@@ -1,6 +1,19 @@
-
-
 <!DOCTYPE html>
+<?php
+   $dbhost = "127.0.0.1";
+   $dbuser = "root";
+   $dbpass = "";
+   $db = "scoutmarkt_db";
+
+   // Create connection
+   $conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
+   // Check connection
+   if ($conn->connect_error) {
+     die("Connection failed: " . $conn->connect_error);
+   }
+
+?>
+
 <html>
 <head>
 <style>
@@ -164,7 +177,7 @@ padding: 30px 30px;
 
   font-size: 16px;
   position:relative;
-  margin-left: 400px;
+  margin-left: 350px;
   top:0;
   right:0;
   border-radius: 10px;
@@ -192,6 +205,12 @@ height: 100px;
 align: middle;
 }
 
+.listmiddle{
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+}
+
 .center {
   display: block;
   margin-left: auto;
@@ -203,7 +222,7 @@ align: middle;
 /* Split Part */
 #col-1 {
   position: relative;
-  width: 20%;
+  width: 30%;
   float: left;
   height: 100%;
   background-color: #ffffff;
@@ -215,7 +234,7 @@ align: middle;
 
 #col-2 {
   position: relative;
-  width: 70%;
+  width: 60%;
   float: right;
   height: 100%;
   background-color: #ffffff;
@@ -227,7 +246,7 @@ align: middle;
             border-left: 2px solid black;
             height: 100%;
             position:absolute;
-            left: 25%;
+            left: 35%;
         }
 
 .horizantal {
@@ -253,7 +272,6 @@ align: middle;
 .notification:hover {
   background: red;
 }
-
 
 .closeButton {
   background-color: #008CBA; /* Blue */
@@ -342,36 +360,35 @@ hr.new1 {
 
 <div id="col-1">
 
+   <?php
+
+   $scoutingAgencyTable = "SELECT * FROM ScoutingAgency";
+   $resultsaTable = mysqli_query($conn, $scoutingAgencyTable);
+    ?>
 
   <form action="/action_page.php">
   <table>
-  	<tr>
-    	<th> Name </th>
-        <th> No. of Scouts </th>
-        <th> Select </th>
+     <tr>
+      <th>Name</th>
+      <th>No. of Scouts</th>
+      <th>Select</th>
     </tr>
-    <tr>
-    <td> Agency A</td>
-    <td> 2 </td>
-    <td>
-  <input type="checkbox" class="radio" id="agencyA" name="check" onclick="onlyOne(this)" value="1">
-  </td>
-  <tr>
-   <td> Agency B</td>
-    <td> 2 </td>
-    <td>
-  <input type="checkbox" class="radio" id="agencyB" name="check" onclick="onlyOne(this)" value="2">
-  </td>
-      </tr>
-      <tr>
-   <td> Agency B</td>
-    <td> 2 </td>
-    <td>
-  <input type="checkbox" class="radio" id="agencyC" name="check" onclick="onlyOne(this)" value="3">
-  </td>
-      </tr>
 
-      <br><br>
+    <?php
+    $counter = -1;
+    ?>
+
+    <?php while($rows = mysqli_fetch_assoc($resultsaTable) ) {
+        $counter = $counter + 1;
+        ?>
+       <tr>
+        <td> <?php echo $rows['AgencyName']?> </td>
+        <td> <?php echo $rows['NumberOfScouts']?>  </td>
+        <td> <input type='checkbox' class="daychecks" onclick="checkOnlyOne(this.value);" id= <?php echo $counter?> > </td>
+       </tr>
+          <?php
+    }
+    ?>
 </table><br><br>
 <input type="submit" value="Select Agency" class="submitButton">
       </form>
@@ -383,19 +400,29 @@ hr.new1 {
 
 <div id="col-2">
   <h1></h1>
-  <c>
-  <form action="/action_page.php">
-    <label for="forganizarion"></label>
-    <input type="text" id="organization" name="organization" placeholder="Organization" required="required"> </c><br><br>
-      <form action="/action_page.php">
-    <label for="forganizarion"></label>
+     <c class = "listmiddle"> Select organization: </c><br>
 
+     <input list="organization-selection" class= "listmiddle" id="organization" name="organization" action="createAccountprocess.php" method="POST"/>
+
+      <datalist id="organization-selection">
+        <option value="Kupa">
+        <option value="Other">
+        <option value="Other other">
+      </datalist><br><br>
+
+    <br><br>
+    <c>
+
+<?php
+$scoutTable = "SELECT * FROM ScoutingAgency";
+$resultsaTable = mysqli_query($conn, $scoutingAgencyTable);
+?>
 
 <script type="text/javascript">
 function createTable()
 {
     var num_rows = document.getElementById('rows').value;
-    var num_cols = 3;
+    var num_cols = 2;
     var theader = '<table border="1">\n';
     var tbody = '';
 
@@ -404,22 +431,16 @@ function createTable()
         tbody += '<tr>';
         for( var j=0; j<num_cols;j++)
         {
-        	if ( j == 2 ){
+            if ( j == 0){
             tbody += '<td>';
-            tbody +=  'checkbox here';
-            tbody += '</td>'
-            }
-            else if ( j == 0){
-            tbody += '<td>';
-            tbody += 'Scout ' + i + ',' + j;
+            tbody += 'Scout ' + i;
             tbody += '</td>'
             }
             else {
             tbody += '<td>';
-            tbody += 'Cell ' + i + ',' + j;
+            tbody += 'Position Here';
             tbody += '</td>'
             }
-
         }
         tbody += '</tr>\n';
     }
@@ -446,10 +467,6 @@ function createTable()
 
 </div>
 
-
-
-
-
 </div>
 
 </body>
@@ -459,6 +476,19 @@ async function requestFunction(e) {
    e.preventDefault();
    document.body.innerHTML+= '<br>'+ await(await fetch('?remove=1')).text();
  }
+</script>
+
+<script type="text/javascript">
+
+function checkOnlyOne(b){
+
+var x = document.getElementsByClassName('daychecks');
+var i;
+
+for (i = 0; i < x.length; i++) {
+  if(x[i].value != b) x[i].checked = false;
+}
+}
 
 </script>
 

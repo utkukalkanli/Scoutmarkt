@@ -1,7 +1,8 @@
 <?php
-
+session_start();
 $usermail = $_POST['usermail'];
 $pass = $_POST['pass'];
+$_SESSION['mailadr'] = $usermail;
 
 $dbhost = "127.0.0.1";
 $dbuser = "root";
@@ -42,5 +43,5 @@ else {
    echo " Type cannot be found. ";
 }
 
-
+close($conn);
 ?>
