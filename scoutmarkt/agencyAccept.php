@@ -1,5 +1,5 @@
 <?php
-   session_start();
+   session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
    $dbhost = "127.0.0.1";
    $dbuser = "root";
    $dbpass = "";
@@ -11,12 +11,12 @@
    if ($conn->connect_error) {
      die("Connection failed: " . $conn->connect_error);
    }
+   $agencymail = $_SESSION['mailadr'];
 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <style>
 p{
   color: black;
@@ -29,6 +29,54 @@ c{
   color: grey;
   font-size: 15px;
   text-align: center;
+}
+.declinedButton {
+  background-color: #FF6347; /* Red */
+  border: #555555; /* Black */
+  color: black;
+  padding: 7px 7px;
+
+  text-decoration: none;
+
+  font-size: 12px;
+  position:relative;
+  margin-left: 15px;
+  top:0;
+  right:0;
+  border-radius: 10px;
+}
+
+.acceptButton{
+   background-color: #90EE90; /* Green */
+   border: #555555; /* Black */
+   color: black;
+   padding: 7px 7px;
+
+   text-decoration: none;
+
+   font-size: 12px;
+   position:relative;
+   margin-left: 15px;
+   top:0;
+   right:0;
+   border-radius: 10px;
+}
+
+.closeButton {
+  background-color: #008CBA; /* Blue */
+  border: #555555; /* Black */
+  color: white;
+  padding: 15px 32px;
+
+
+  text-decoration: none;
+
+  font-size: 16px;
+  position:relative;
+  margin-left: 15px;
+  top:0;
+  right:0;
+  border-radius: 10px;
 }
 
 headline {
@@ -59,7 +107,6 @@ padding: 15px 20px;
   position:absolute;
   top:0;
   right:0;
-  border-radius: 10px;
 }
 
 button:disabled,
@@ -67,7 +114,6 @@ button[disabled]{
   border: 1px solid #999999;
   background-color: #cccccc;
   color: #666666;
-  border-radius: 10px;
 }
 
 .logoutbutton {
@@ -84,7 +130,6 @@ button[disabled]{
   position:absolute;
   top:0;
   right:0;
-  border-radius: 10px;
 }
 
 .seeRequestButton {
@@ -101,7 +146,6 @@ button[disabled]{
   margin-left: 15px;
   top:0;
   right:0;
-  border-radius: 10px;
 }
 
 .requestOptionsButton {
@@ -118,7 +162,6 @@ button[disabled]{
   margin-left: 15px;
   top:0;
   right:0;
-  border-radius: 10px;
 }
 
 
@@ -138,79 +181,12 @@ margin-right: 10px;
 padding: 30px 30px;
 }
 
-.requestNewScoutButton {
-  background-color: #008CBA; /* Blue */
-  border: #555555; /* Black */
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin-top: 4px;
-  margin-left: 150px;
-  border-radius: 10px;
-}
-
-.submitButton {
-  background-color: #008CBA; /* Blue */
-  border: #555555; /* Black */
-  color: white;
-  padding: 15px 32px;
-
-  text-decoration: none;
-
-  font-size: 15px;
-  position:relative;
-  margin-left: 50px;
-  top:0;
-  right:0;
-  border-radius: 10px;
-}
-
-.sendRequestButton {
-  background-color: #008CBA; /* Blue */
-  border: #555555; /* Black */
-  color: white;
-  padding: 15px 32px;
-
-  text-decoration: none;
-
-  font-size: 16px;
-  position:relative;
-  margin-left: 350px;
-  top:0;
-  right:0;
-  border-radius: 10px;
-}
-
-.seeScoutsButton {
-  background-color: #FFF0F5; /* Lavender Blush*/
-  border: #555555; /* Black */
-  color: black;
-  padding: 5px 15px;
-  text-decoration: none;
-
-  font-size: 12px;
-  position:relative;
-  margin-left: 10px;
-  top:0;
-  right:0;
-  border-radius: 10px;
-}
-
 .styledimg {
+background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/522eb88f-6823-4672-a8de-49fc589745db/d67vche-6608fd42-98a0-4448-a20b-ce9b0a596268.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvNTIyZWI4OGYtNjgyMy00NjcyLWE4ZGUtNDlmYzU4OTc0NWRiXC9kNjd2Y2hlLTY2MDhmZDQyLTk4YTAtNDQ0OC1hMjBiLWNlOWIwYTU5NjI2OC5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.9SWVHT1Fh-HZXZBIxyuJvGhTkeipbN5rJFQeeOIEwVY);
 background-repeat: no-repeat;
 width: 100px;
 height: 100px;
 align: middle;
-}
-
-.listmiddle{
-   display: block;
-   margin-left: auto;
-   margin-right: auto;
-     width: 50%;
 }
 
 .center {
@@ -258,6 +234,8 @@ align: middle;
             top: 10%;
         }
 
+/* Split Part Ends */
+
 /*notification*/
 .notification {
   background-color: #555;
@@ -274,23 +252,6 @@ align: middle;
 .notification:hover {
   background: red;
 }
-
-.closeButton {
-  background-color: #008CBA; /* Blue */
-  border: #555555; /* Black */
-  color: white;
-  padding: 15px 32px;
-
-  text-decoration: none;
-
-  font-size: 15px;
-  position:relative;
-  margin-left: 30px;
-  top:0;
-  right:0;
-   border-radius: 10px;
-}
-
 
 .notification .badge {
   position: absolute;
@@ -353,57 +314,41 @@ hr.new1 {
 <body>
 
 <div>
-<title1>New Request</title1>
+   <?php
+   $queryName = "SELECT * FROM ScoutingAgency WHERE AgencyEmail = '$agencymail'";
+   $resultName = $conn->query($queryName);
+   while($rowName = $resultName->fetch_assoc()) {
+      //echo "id: " . $row["UserEmail"]. " - Name: " . $row["UserPassword"]. "<br>";
+      $theAgencyName = $rowName['AgencyName'];
+      $noOfScouts = $rowName['NumberOfScouts'];
+   }
+    echo "<title1> Welcome Agency {$theAgencyName} </title1>";
+
+    ?>
 <button class="logoutbutton">LogOut</button>
 </div>
 
-<hr class="new1">
-
-
-<?php
-
-$selectName = $_SESSION['requestNameSelected'];
-$selectedOrganization =  $_SESSION['organizationSelection'];
-$selectedScoutNumber =  $_SESSION['selectedScoutNumber'];
-$selectedPosition =  $_SESSION['organizationPosition'];
-$selectedName =  $_SESSION['selectedAgencyName'] ;
-
-$infiniteQuery = "INSERT INTO Request VALUES(DEFAULT,'$selectName','$selectedOrganization','$selectedScoutNumber','$selectedPosition','Requested')
-INSERT INTO club_request(RequestID, ClubName)
-SELECT RequestID, ClubName
-FROM Request, Club
-WHERE RequestName = '$selectName' AND ClubName = '$theClubName'";
-
-$thequeryofscoutnewrequest = $conn->query($infiniteQuery);
-
-$lastRequestQuery = "INSERT INTO agency_response (AgencyName,RequestID,ClubName)
-SELECT AgencyName, RequestID, ClubName
-FROM ScoutingAgency, Request, Club
-WHERE AgencyName = '$selectedAgencyName' AND
-RequestID = (SELECT RequestID
-FROM Request
-WHERE RequestName = '$selectName') AND
-ClubName = (SELECT ClubName
-FROM Club
-WHERE ClubName = '$theClubName')";
-
-$otherotherother = $conn->query($lastRequestQuery);
-?>
-
-
-<div>
-
-   <title1> New request is created. </title1>
-   <button class = "closeButton" onclick="window.location.href='clubHomePage.php'"> OK. </button>
-
+<hr class="new1"></hr>
+<div id="col-1">
+ <h1> </h1>
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSC1VyBdUc9-Z0DV3OZDT3DOKhaWf_HnlTIbqJCPFfXgMSZvrTQ&usqp=CAU" alt="Paris" class="center">
+  <?php echo "<br> <br> <d> Number of Scouts: {$noOfScouts}</d>"; ?>
+  <br> <br>
+    <button class="closeButton" onclick="window.location.href='agencyHomePage.php'"> Close </button>
 </div>
+
+<div class = "vertical"></div>
+
+<div id="col-2">
+
+   <?php
+   $acceptQuery = "UPDATE Request, agency_response
+SET RequestStatus = 'Accepted', Answer = 'Accepted'
+WHERE Request.RequestID = @requestid_input AND agency_response.RequestID = @requestid_input;
+";
+   $resultAccept = $conn->query($acceptQuery);
+   ?>
 
 </div>
 </body>
-
-<script>
-
-</script>
-
-
 </html>

@@ -355,7 +355,6 @@ hr.new1 {
 <div>
 <title1>New Request</title1>
 <button class="logoutbutton">LogOut</button>
-<button class="profilebutton">Profile</button>
 </div>
 
 <hr class="new1">

@@ -289,7 +289,6 @@ hr.new1 {
 <div>
 <title1>Welcome Fan </title1>
 <button class="logoutbutton">LogOut</button>
-<button class="profilebutton">Profile</button>
 <button class="btn"><i class="fa fa-home"></i></button>
 </div>
 

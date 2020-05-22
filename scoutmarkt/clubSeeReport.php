@@ -246,7 +246,6 @@ playerButton:hover, a:hover {
 <title1>Report A </title1>
 
 <button class="logoutbutton">LogOut</button>
-<button class="profilebutton">Profile</button>
 <button class="btn"><i class="fa fa-home"></i></button>
 </div>
 

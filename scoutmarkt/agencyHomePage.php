@@ -1,4 +1,19 @@
+<?php
+   session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+   $dbhost = "127.0.0.1";
+   $dbuser = "root";
+   $dbpass = "";
+   $db = "scoutmarkt_datab";
 
+   // Create connection
+   $conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
+   // Check connection
+   if ($conn->connect_error) {
+     die("Connection failed: " . $conn->connect_error);
+   }
+   $agencymail = $_SESSION['mailadr'];
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +29,37 @@ c{
   color: grey;
   font-size: 15px;
   text-align: center;
+}
+.declinedButton {
+  background-color: #FF6347; /* Red */
+  border: #555555; /* Black */
+  color: black;
+  padding: 7px 7px;
+
+  text-decoration: none;
+
+  font-size: 12px;
+  position:relative;
+  margin-left: 15px;
+  top:0;
+  right:0;
+  border-radius: 10px;
+}
+
+.acceptButton{
+   background-color: #90EE90; /* Green */
+   border: #555555; /* Black */
+   color: black;
+   padding: 7px 7px;
+
+   text-decoration: none;
+
+   font-size: 12px;
+   position:relative;
+   margin-left: 15px;
+   top:0;
+   right:0;
+   border-radius: 10px;
 }
 
 headline {
@@ -251,72 +297,65 @@ hr.new1 {
 <body>
 
 <div>
-<title1>Welcome Agency A</title1>
+   <?php
+   $queryName = "SELECT * FROM ScoutingAgency WHERE AgencyEmail = '$agencymail'";
+   $resultName = $conn->query($queryName);
+   while($rowName = $resultName->fetch_assoc()) {
+      //echo "id: " . $row["UserEmail"]. " - Name: " . $row["UserPassword"]. "<br>";
+      $theAgencyName = $rowName['AgencyName'];
+      $noOfScouts = $rowName['NumberOfScouts'];
+   }
+    echo "<title1> Welcome Agency {$theAgencyName} </title1>";
+
+    ?>
 <button class="logoutbutton">LogOut</button>
-<button class="profilebutton">Profile</button>
 </div>
 
 <hr class="new1"></hr>
 <div id="col-1">
  <h1> </h1>
   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSC1VyBdUc9-Z0DV3OZDT3DOKhaWf_HnlTIbqJCPFfXgMSZvrTQ&usqp=CAU" alt="Paris" class="center">
-  <br> <br> <d> Number of Scouts: </d>
+  <?php echo "<br> <br> <d> Number of Scouts: {$noOfScouts}</d>"; ?>
   <br> <br>
-
-
 </div>
 
 <div class = "vertical"></div>
 
 <div id="col-2">
-  <br><br>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Club</th>
-    <th>Status</th>
-    <th></th>
-    <th></th>
-  </tr>
-  <tr>
-    <td>Request A</td>
-    <td><span class="yellowText">Pending</span></td>
-    <td><a href="http://www.google.com">Details</a><br /></td>
-    <td><button class="seeRequestButton" id="myP" disabled >See Request</button></td>
 
-  </tr>
-  <tr>
-    <td>Request B</td>
-    <td><span class="redText">Rejected</span></td>
-    <td><a href="http://www.google.com">Details</a><br /></td>
-     <td><button class="seeRequestButton" id="myP" visibility() >See Request</button></td>
-  </tr>
-  <tr>
-    <td>Request C</td>
-    <td><span class="purpleText">Processing</span></td>
-    <td><a href="http://www.google.com">Details</a><br></td>
-    <td><button class="seeRequestButton" id="myP"  >See Request</button></td>
-  </tr>
-  <tr>
-    <td>Request D </td>
-    <td><span class="greenText">Reported</span></td>
-    <td><a href="http://www.google.com">Details</a><br /></td>
-   <td> <button class="seeRequestButton" id="seeRequest"  >See Request</button><?php
-    $status = mysql_num_rows($query3);
+   <?php
+
+   $queryTable = "SELECT * FROM agency_response WHERE AgencyName = '$theAgencyName'";
+   $resultTable = mysqli_query($conn, $queryTable);
     ?>
-    if ($status == "canBeSeen") {
-      <style type="text/css">#seeRequest{display:block;}</style>
-
-      <?php ?> </td>
-   </tr>
-
-<tr><td> <i class="fas fa-exclamation-triangle" style="font-size:13px;color:green;" ></i> Request E </td>
-<td> Request E </td>
-<td> ... </td>
-<td> </td></tr>
-
-</table>
+   <table>
+      <tr>
+        <th>Request ID</th>
+        <th>Club Name </th>
+        <th>Status </th>
+        <th>Action </th>
+      </tr>
+      <?php while($rows = mysqli_fetch_assoc($resultTable) ) {
+          ?>
+         <tr>
+          <td> <?php echo $rows['RequestID']?> </td>
+          <td> <?php echo $rows['ClubName']?>  </td>
+          <td> <?php echo $rows['Answer']?>  </td>
+          <td>
+             <?php if( $rows['Answer'] == 'waiting for response'){ ?>
+                <button class="acceptButton" onclick="window.location.href='agencyAccept.php'" name = <?php echo  $rows['RequestID']?>> Accept </button>
+                <button class="declinedButton" onclick="window.location.href='agencyDecline.php'" name = <?php echo  $rows['RequestID']?>> Decline </button>
+             <?php } ?>
+          </td>
+         </tr>
+         <tr>
+            <?php
+      }
+      ?>
 </div>
 </body>
+
+<script>
+</script>
 </html>
