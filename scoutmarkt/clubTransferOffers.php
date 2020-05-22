@@ -390,7 +390,13 @@ hr.new1 {
 <div id="col-2">
    <?php
 
-   $transferTable = "SELECT * FROM TransferOffer tof JOIN Club c ON c.ClubName = tof.RespondingClubName AND (tof.TransferStatus = 'Active' OR tof.TransferStatus = 'Completed')WHERE c.ClubName = '$theClubName'";
+   $transferTable = "SELECT * FROM
+   responds r JOIN
+   TransferOffer tf
+   ON r.TransferID = tf.TransferID
+   JOIN FootballPlayer fp
+   ON fp.PlayerID = tf.PlayerID
+   WHERE tf.RespondingClubName = '$theClubName' AND r.ClubAnswer = 'Waiting' ";
    $resultTransfer = $conn->query($transferTable);
     ?>
    <table>
@@ -431,6 +437,7 @@ hr.new1 {
         </tr>
         <tr>
            <?php
+           $theRespondID = $rows['RespondsID'];
      }
      ?>
    </table>
@@ -449,14 +456,20 @@ async function requestFunction(e) {
 <script>
 function acceptFunction() {
   <?php
-  $acceptQuery = "UPDATE responds r JOIN Club c ON r.ClubName = c.ClubName AND c.ClubName = '$theClubName' SET ClubAnswer = 'Accepted'";
+  $acceptQuery = "UPDATE responds r
+ JOIN Club c ON r.ClubName = c.ClubName
+ AND c.ClubName = '$theClubName' AND r.RespondsID = '$theRespondID'
+ SET ClubAnswer = 'Accepted'";
   $resultAccept = $conn->query($acceptQuery);
   ?>
 }
 
 function declinedFunction() {
    <?php
-   $declinedQuery = "UPDATE responds r JOIN Club c ON r.ClubName = c.ClubName AND c.ClubName = '$theClubName' SET ClubAnswer = 'Declined'";
+   $declinedQuery = "UPDATE responds r
+  JOIN Club c ON r.ClubName = c.ClubName
+  AND c.ClubName = '$theClubName' AND r.RespondsID = '$theRespondID'
+  SET ClubAnswer = 'Declined'";
    $resultDecline = $conn->query($declineQuery);
    ?>
 }

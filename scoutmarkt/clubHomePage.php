@@ -1,6 +1,4 @@
-<!DOCTYPE html>
 <?php
-
    session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
    $dbhost = "127.0.0.1";
    $dbuser = "root";
@@ -15,6 +13,7 @@
    }
 
 ?>
+<!DOCTYPE html>
 <html>
 <head>
 <style>
@@ -365,6 +364,8 @@ $thenumberis = $dataTNo['total_offer_count'];
   <span>Transfer Offers</span>
   <span class="badge"><?php echo $thenumberis; ?></span>
 </a>
+
+<button class = "seeReportButton" onclick="window.location.href='clubSeeReport.php'"> See Completed Reports </button>
 
 </div>
 
