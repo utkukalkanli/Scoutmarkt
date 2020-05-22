@@ -325,7 +325,7 @@ hr.new1 {
     echo "<title1> Welcome Agency {$theAgencyName} </title1>";
 
     ?>
-<button class="logoutbutton">LogOut</button>
+<button class="logoutbutton" onclick="window.location.href='login.php'">LogOut</button>
 </div>
 
 <hr class="new1"></hr>
@@ -344,7 +344,7 @@ hr.new1 {
    <?php
    $acceptQuery = "UPDATE Request, agency_response
 SET RequestStatus = 'Accepted', Answer = 'Accepted'
-WHERE Request.RequestID = @requestid_input AND agency_response.RequestID = @requestid_input;
+WHERE Request.RequestID = '6' AND agency_response.RequestID = '6';
 ";
    $resultAccept = $conn->query($acceptQuery);
    ?>

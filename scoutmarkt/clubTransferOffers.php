@@ -367,7 +367,7 @@ hr.new1 {
     echo "<title1> Transfer Offers </title1>";
 
 ?>
-<button class="logoutbutton">LogOut</button>
+<button class="logoutbutton" onclick="window.location.href='login.php'">LogOut</button>
 </div>
 
 <hr class="new1">

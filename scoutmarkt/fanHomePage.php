@@ -288,7 +288,7 @@ hr.new1 {
 
 <div>
 <title1>Welcome Fan </title1>
-<button class="logoutbutton">LogOut</button>
+<button class="logoutbutton" onclick="window.location.href='login.php'">LogOut</button>
 <button class="btn"><i class="fa fa-home"></i></button>
 </div>
 

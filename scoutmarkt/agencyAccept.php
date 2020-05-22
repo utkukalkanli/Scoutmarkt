@@ -325,7 +325,7 @@ hr.new1 {
     echo "<title1> Welcome Agency {$theAgencyName} </title1>";
 
     ?>
-<button class="logoutbutton">LogOut</button>
+<button class="logoutbutton" onclick="window.location.href='login.php'">LogOut</button>
 </div>
 
 <hr class="new1"></hr>
@@ -333,6 +333,23 @@ hr.new1 {
  <h1> </h1>
   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSC1VyBdUc9-Z0DV3OZDT3DOKhaWf_HnlTIbqJCPFfXgMSZvrTQ&usqp=CAU" alt="Paris" class="center">
   <?php echo "<br> <br> <d> Number of Scouts: {$noOfScouts}</d>"; ?>
+
+  <?php
+  $queryScoutRel = "INSERT INTO assigns (AgencyName, ScoutID, RequestID)
+SELECT ar.AgencyName, s.ScoutID, r.RequestID
+FROM employs e NATURAL JOIN Scout s NATURAL JOIN agency_response ar NATURAL JOIN Request r
+WHERE ar.Answer = 'Accepted' AND e.AgencyName = {'$theAgencyName'}
+LIMIT 1;
+UPDATE Scout s
+JOIN assigns a ON s.ScoutID = a.ScoutID
+SET s.Availability = 'False' ";
+$resultquerySScout = $conn->query($queryScoutRel);
+  ?>
+
+  <?php
+
+
+   ?>
   <br> <br>
     <button class="closeButton" onclick="window.location.href='agencyHomePage.php'"> Close </button>
 </div>
@@ -344,7 +361,7 @@ hr.new1 {
    <?php
    $acceptQuery = "UPDATE Request, agency_response
 SET RequestStatus = 'Accepted', Answer = 'Accepted'
-WHERE Request.RequestID = @requestid_input AND agency_response.RequestID = @requestid_input;
+WHERE Request.RequestID = '6' AND agency_response.RequestID = '6';
 ";
    $resultAccept = $conn->query($acceptQuery);
    ?>

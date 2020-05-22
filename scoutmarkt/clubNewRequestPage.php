@@ -354,7 +354,7 @@ hr.new1 {
 
 <div>
 <title1>New Request</title1>
-<button class="logoutbutton">LogOut</button>
+<button class="logoutbutton" onclick="window.location.href='login.php'">LogOut</button>
 </div>
 
 <hr class="new1">
