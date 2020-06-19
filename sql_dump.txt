@@ -1,0 +1,1360 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost
+-- Generation Time: May 21, 2020 at 08:13 AM
+-- Server version: 5.7.26
+-- PHP Version: 7.4.2
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `scoutmarkt_db`
+--
+CREATE DATABASE IF NOT EXISTS `scoutmarkt_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `scoutmarkt_db`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `agency_response`
+--
+
+CREATE TABLE `agency_response` (
+  `AgencyName` varchar(64) NOT NULL,
+  `RequestID` int(11) NOT NULL,
+  `ClubName` varchar(64) NOT NULL,
+  `Answer` varchar(64) DEFAULT 'waiting for response'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `agency_response`
+--
+
+INSERT INTO `agency_response` (`AgencyName`, `RequestID`, `ClubName`, `Answer`) VALUES
+('AltıntopAgency', 3, 'Borussia Dortmund', 'Accepted'),
+('Europe Scouting', 2, 'Manchester United', 'Accepted'),
+('Europe Scouting', 4, 'Barcelona', 'Accepted'),
+('Topscout', 1, 'Lazio', 'Accepted');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Agent`
+--
+
+CREATE TABLE `Agent` (
+  `AgentName` varchar(64) NOT NULL,
+  `Agency` varchar(64) DEFAULT NULL,
+  `Country` varchar(64) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Agent`
+--
+
+INSERT INTO `Agent` (`AgentName`, `Agency`, `Country`) VALUES
+('Agent 1', 'Self-employed', 'Sweden'),
+('Agent 2', 'Hermanos', 'Spain'),
+('Agent 3', 'Hermanos', 'Spain'),
+('Agent 4', 'Spartan', 'Greece'),
+('Agent 5', 'Spartan', 'Greece'),
+('Ahmet Bulut', 'Cukka', 'Turkey'),
+('Batur Altıparmak', 'Cukka', 'Turkey'),
+('Jorge Mendes', 'Ordagal', 'Portugal');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assigns`
+--
+
+CREATE TABLE `assigns` (
+  `AgencyName` varchar(64) NOT NULL,
+  `ScoutID` int(11) NOT NULL,
+  `RequestID` int(11) NOT NULL,
+  `Notification` varchar(64) DEFAULT 'New assignment'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `assigns`
+--
+
+INSERT INTO `assigns` (`AgencyName`, `ScoutID`, `RequestID`, `Notification`) VALUES
+('AltıntopAgency', 2, 3, 'New assignment'),
+('Europe Scouting', 8, 2, 'New assignment'),
+('Topscout', 4, 1, 'New assignment');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Club`
+--
+
+CREATE TABLE `Club` (
+  `ClubEmail` varchar(64) DEFAULT NULL,
+  `ClubName` varchar(64) NOT NULL,
+  `League` varchar(64) DEFAULT NULL,
+  `ClubRank` int(11) DEFAULT NULL,
+  `Country` varchar(64) DEFAULT NULL,
+  `Organization` varchar(64) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Club`
+--
+
+INSERT INTO `Club` (`ClubEmail`, `ClubName`, `League`, `ClubRank`, `Country`, `Organization`) VALUES
+('adanademirspor@gmail.com', 'Adana Demirspor', 'TFF 1. Lig', 5, 'Turkey', 'Cup'),
+('ajax@gmail.com', 'Ajax', 'Eredevisie', 50, 'Holland', 'Cup'),
+('ankaragucu@gmail.com', 'Ankaragücü', 'Süper Lig', 6, 'Turkey', 'Cup'),
+('antalyaspor@gmail.com', 'Antalyaspor', 'Süper Lig', 9, 'Turkey', 'Cup'),
+('arsenal@gmail.com', 'Arsenal', 'Premier League', 32, 'England', 'Cup'),
+('atalanta@gmail.com', 'Atalanta', 'Seria A', 48, 'Italy', 'Cup'),
+('konyaspor@gmail.com', 'Atiker Konyaspor', 'Süper Lig', 15, 'Turkey', 'Cup'),
+('atletico@gmail.com', 'Atletico de Madrid', 'La Liga', 40, 'Spain', 'Cup'),
+('barcelona@gmail.com', 'Barcelona', 'La Liga', 37, 'Spain', 'Cup'),
+('leverkusen@gmail.com', 'Bayer Leverkusen', 'Bundesliga', 23, 'Germany', 'Cup'),
+('bayernmunih@gmail.com', 'Bayern Munih', 'Bundesliga', 18, 'Germany', 'Cup'),
+('besiktas@gmail.com', 'Beşiktaş', 'Süper Lig', 1, 'Turkey', 'Cup'),
+('bordeaux@gmail.com', 'Bordeaux', 'Ligue 1', 28, 'France', 'Cup'),
+('borussiadortmund@gmail.com', 'Borussia Dortmund', 'Bundesliga', 17, 'Germany', 'Cup'),
+('chelsea@gmail.com', 'Chelsea', 'Premier League', 33, 'England', 'Cup'),
+('denizlispor@gmail.com', 'Denizlispor', 'Süper Lig', 10, 'Turkey', 'Cup'),
+('dinamozagreb@gmail.com', 'Dinamo Zagreb', '1.NHL', 53, 'Croatia', 'Cup'),
+('empoli@gmail.com', 'Empoli', 'Seria A', 45, 'Italy', 'Cup'),
+('everton@gmail.com', 'Everton', 'Premier League', 36, 'England', 'Cup'),
+('fenerbahce@gmail.com', 'Fenerbahçe', 'Süper Lig', 3, 'Turkey', 'Cup'),
+('galatasaray@gmail.com', 'Galatasaray', 'Süper Lig', 4, 'Turkey', 'Cup'),
+('genclerbirligi@gmail.com', 'Gençlerbirliği', 'Süper Lig', 13, 'Turkey', 'Cup'),
+('goztepe@gmail.com', 'Göztepe', 'Süper Lig', 11, 'Turkey', 'Cup'),
+('herthaberlin@gmail.com', 'Hertha Berlin', 'Bundesliga', 19, 'Germany', 'Cup'),
+('hoffenheim@gmail.com', 'Hoffenheim', 'Bundesliga', 20, 'Germany', 'Cup'),
+('inter@gmail.com', 'Inter', 'Seria A', 42, 'Italy', 'Cup'),
+('juventus@gmail.com', 'Juventus', 'Seria A', 43, 'Italy', 'Cup'),
+('kasimpasa@gmail.com', 'Kasımpaşa', 'Süper Lig', 12, 'Turkey', 'Cup'),
+('kayserispor@gmail.com', 'Kayserispor', 'Süper Lig', 7, 'Turkey', 'Cup'),
+('lazio@gmail.com', 'Lazio', 'Seria A', 47, 'Italy', 'Cup'),
+('leicester@gmail.com', 'Leicester City', 'Premier League', 34, 'England', 'Cup'),
+('lille@gmail.com', 'Lille', 'Ligue 1', 26, 'France', 'Cup'),
+('liverpool@gmail.com', 'Liverpool', 'Premier League', 35, 'England', 'Cup'),
+('lagalaxy@gmail.com', 'Los Angeles Galaxy', 'MLS', 54, 'USA', 'Cup'),
+('mancity@gmail.com', 'Manchester City', 'Premier League', 30, 'England', 'Cup'),
+('manchesterunited@gmail.com', 'Manchester United', 'Premier League', 29, 'England', 'Cup'),
+('marsilya@gmail.com', 'Marsilya', 'Ligue 1', 27, 'France', 'Cup'),
+('basaksehir@gmail.com', 'Medipol Başakşehir', 'Süper Lig', 8, 'Turkey', 'Cup'),
+('milan@gmail.com', 'Milan', 'Seria A', 44, 'Italy', 'Cup'),
+('napoli@gmail.com', 'Napoli', 'Seria A', 46, 'Italy', 'Cup'),
+('lyonnais@gmail.com', 'Olympique Lyonnais', 'Ligue 1', 25, 'France', 'Cup'),
+('parissaintgermain@gmail.com', 'Paris-Saint Germain', 'League 1', 24, 'France', 'Cup'),
+('racingclub@gmail.com', 'Racing Club', 'Superliga', 51, 'Argentina', 'Cup'),
+('leipzig@gmail.com', 'RasenBallsport Leipzig', 'Bundesliga', 22, 'Germany', 'Cup'),
+('realmadrid@gmail.com', 'Real Madrid', 'La Liga', 38, 'Spain', 'Cup'),
+('roma@gmail.com', 'Roma', 'Seria A', 49, 'Italy', 'Cup'),
+('braga@gmail.com', 'SC Braga', 'Liga NOS', 52, 'Portugal', 'Cup'),
+('schalke@gmail.com', 'Schalke 04', 'Bundesliga', 21, 'Germany', 'Cup'),
+('sevilla@gmail.com', 'Sevilla', 'La Liga', 41, 'Spain', 'Cup'),
+('sivasspor@gmail.com', 'Sivasspor', 'Süper Lig', 14, 'Turkey', 'Cup'),
+('tottenham@gmail.com', 'Tottenham Hotspur', 'Premier League', 31, 'England', 'Cup'),
+('trabzonspor@gmail.com', 'Trabzonspor', 'Süper Lig', 2, 'Turkey', 'Cup'),
+('valencia@gmail.com', 'Valencia', 'La Liga', 39, 'Spain', 'Cup'),
+('malatyaspor@gmail.com', 'Yeni Malatyaspor', 'Süper Lig', 16, 'Turkey', 'Cup');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `club_request`
+--
+
+CREATE TABLE `club_request` (
+  `RequestID` int(11) NOT NULL,
+  `ClubName` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `club_request`
+--
+
+INSERT INTO `club_request` (`RequestID`, `ClubName`) VALUES
+(4, 'Barcelona'),
+(3, 'Borussia Dortmund'),
+(1, 'Lazio'),
+(2, 'Manchester United');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `consist_of`
+--
+
+CREATE TABLE `consist_of` (
+  `DreamTeamName` varchar(64) NOT NULL,
+  `PlayerID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contract`
+--
+
+CREATE TABLE `contract` (
+  `PlayerID` int(11) NOT NULL,
+  `ClubName` varchar(64) NOT NULL,
+  `ContractLength` date DEFAULT NULL,
+  `TerminationFee` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `contract`
+--
+
+INSERT INTO `contract` (`PlayerID`, `ClubName`, `ContractLength`, `TerminationFee`) VALUES
+(66, 'Ajax', '2021-01-01', 10000000),
+(96, 'Ajax', '2023-01-01', 10000000),
+(97, 'Ajax', '2023-01-01', 10000000),
+(23, 'Arsenal', '2021-01-01', 10000000),
+(31, 'Arsenal', '2023-01-01', 10000000),
+(73, 'Atalanta', '2021-01-01', 10000000),
+(7, 'Atletico de Madrid', '2025-01-01', 10000000),
+(65, 'Atletico de Madrid', '2022-01-01', 10000000),
+(68, 'Atletico de Madrid', '2023-01-01', 10000000),
+(2, 'Barcelona', '2022-01-01', 10000000),
+(4, 'Barcelona', '2023-01-01', 10000000),
+(10, 'Barcelona', '2023-01-01', 10000000),
+(22, 'Barcelona', '2025-01-01', 10000000),
+(25, 'Barcelona', '2025-01-01', 10000000),
+(26, 'Barcelona', '2021-01-01', 10000000),
+(46, 'Barcelona', '2025-01-01', 10000000),
+(51, 'Barcelona', '2024-01-01', 10000000),
+(57, 'Barcelona', '2024-01-01', 10000000),
+(59, 'Barcelona', '2025-01-01', 10000000),
+(14, 'Bayern Munih', '2021-01-01', 10000000),
+(35, 'Bayern Munih', '2021-01-01', 10000000),
+(41, 'Bayern Munih', '2021-01-01', 10000000),
+(55, 'Bayern Munih', '2022-01-01', 10000000),
+(56, 'Bayern Munih', '2023-01-01', 10000000),
+(72, 'Bayern Munih', '2024-01-01', 10000000),
+(74, 'Bayern Munih', '2022-01-01', 10000000),
+(45, 'Borussia Dortmund', '2024-01-01', 10000000),
+(48, 'Borussia Dortmund', '2021-01-01', 10000000),
+(77, 'Borussia Dortmund', '2022-01-01', 10000000),
+(80, 'Borussia Dortmund', '2023-01-01', 10000000),
+(86, 'Dinamo Zagreb', '2022-01-01', 10000000),
+(85, 'Empoli', '2022-01-01', 10000000),
+(90, 'Fenerbahçe', '2022-01-01', 10000000),
+(89, 'Galatasaray', '2023-01-01', 10000000),
+(92, 'Galatasaray', '2025-01-01', 10000000),
+(79, 'Hertha Berlin', '2021-01-01', 10000000),
+(82, 'Hoffenheim', '2021-01-01', 10000000),
+(19, 'Inter', '2023-01-01', 10000000),
+(28, 'Inter', '2022-01-01', 10000000),
+(58, 'Inter', '2025-01-01', 10000000),
+(70, 'Inter', '2024-01-01', 10000000),
+(15, 'Juventus', '2022-01-01', 10000000),
+(27, 'Juventus', '2022-01-01', 10000000),
+(33, 'Juventus', '2022-01-01', 10000000),
+(60, 'Juventus', '2023-01-01', 10000000),
+(71, 'Juventus', '2021-01-01', 10000000),
+(75, 'Juventus', '2023-01-01', 10000000),
+(76, 'Juventus', '2024-01-01', 10000000),
+(91, 'Kasımpaşa', '2021-01-01', 10000000),
+(54, 'Lazio', '2022-01-01', 10000000),
+(67, 'Lazio', '2022-01-01', 10000000),
+(94, 'Leicester City', '2024-01-01', 10000000),
+(98, 'Leicester City', '2022-01-01', 10000000),
+(81, 'Lille', '2023-01-01', 10000000),
+(3, 'Liverpool', '2023-01-01', 10000000),
+(6, 'Liverpool', '2024-01-01', 10000000),
+(21, 'Liverpool', '2023-01-01', 10000000),
+(49, 'Liverpool', '2022-01-01', 10000000),
+(62, 'Liverpool', '2021-01-01', 10000000),
+(99, 'Los Angeles Galaxy', '2022-01-01', 10000000),
+(8, 'Manchester City', '2021-01-01', 10000000),
+(16, 'Manchester City', '2023-01-01', 10000000),
+(24, 'Manchester City', '2024-01-01', 10000000),
+(29, 'Manchester City', '2023-01-01', 10000000),
+(34, 'Manchester City', '2024-01-01', 10000000),
+(40, 'Manchester City', '2025-01-01', 10000000),
+(42, 'Manchester City', '2022-01-01', 10000000),
+(1, 'Manchester United', '2021-01-01', 10000000),
+(64, 'Manchester United', '2023-01-01', 10000000),
+(63, 'Milan', '2022-01-01', 10000000),
+(12, 'Napoli', '2024-01-01', 10000000),
+(37, 'Napoli', '2022-01-01', 10000000),
+(39, 'Napoli', '2021-01-01', 10000000),
+(69, 'Napoli', '2023-01-01', 10000000),
+(83, 'Olympique Lyonnais', '2021-01-01', 10000000),
+(18, 'Paris-Saint Germain', '2022-01-01', 10000000),
+(30, 'Paris-Saint Germain', '2024-01-01', 10000000),
+(32, 'Paris-Saint Germain', '2025-01-01', 10000000),
+(38, 'Paris-Saint Germain', '2024-01-01', 10000000),
+(61, 'Paris-Saint Germain', '2022-01-01', 10000000),
+(100, 'Racing Club', '2023-01-01', 10000000),
+(93, 'RasenBallsport Leipzig', '2023-01-01', 10000000),
+(5, 'Real Madrid', '2023-01-01', 10000000),
+(9, 'Real Madrid', '2022-01-01', 10000000),
+(17, 'Real Madrid', '2024-01-01', 10000000),
+(20, 'Real Madrid', '2024-01-01', 10000000),
+(47, 'Real Madrid', '2021-01-01', 10000000),
+(50, 'Real Madrid', '2023-01-01', 10000000),
+(52, 'Real Madrid', '2025-01-01', 10000000),
+(84, 'SC Braga', '2021-01-01', 10000000),
+(13, 'Tottenham Hotspur', '2025-01-01', 10000000),
+(36, 'Tottenham Hotspur', '2023-01-01', 10000000),
+(43, 'Tottenham Hotspur', '2023-01-01', 10000000),
+(44, 'Tottenham Hotspur', '2024-01-01', 10000000),
+(95, 'Tottenham Hotspur', '2024-01-01', 10000000),
+(53, 'Valencia', '2026-01-01', 10000000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `create_dream_team`
+--
+
+CREATE TABLE `create_dream_team` (
+  `DreamTeamName` varchar(64) NOT NULL,
+  `FanID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `create_dream_team`
+--
+
+INSERT INTO `create_dream_team` (`DreamTeamName`, `FanID`) VALUES
+('BaĞCıLaR Fc', 3),
+('Julia Dream', 2),
+('Kartalım', 4),
+('mAnYaK TaKıM', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `DreamTeam`
+--
+
+CREATE TABLE `DreamTeam` (
+  `DreamTeamName` varchar(64) NOT NULL,
+  `FormationDef` enum('1','2','3','4','5') NOT NULL,
+  `FormationMid` enum('1','2','3','4','5') NOT NULL,
+  `FormationFor` enum('1','2','3','4') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `DreamTeam`
+--
+
+INSERT INTO `DreamTeam` (`DreamTeamName`, `FormationDef`, `FormationMid`, `FormationFor`) VALUES
+('BaĞCıLaR Fc', '4', '3', '3'),
+('Julia Dream', '4', '3', '3'),
+('Kartalım', '4', '3', '3'),
+('mAnYaK TaKıM', '4', '4', '2');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employs`
+--
+
+CREATE TABLE `employs` (
+  `ScoutID` int(11) NOT NULL,
+  `AgencyName` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `employs`
+--
+
+INSERT INTO `employs` (`ScoutID`, `AgencyName`) VALUES
+(2, 'AltıntopAgency'),
+(3, 'AltıntopAgency'),
+(8, 'Europe Scouting'),
+(9, 'Europe Scouting'),
+(10, 'Europe Scouting'),
+(11, 'Europe Scouting'),
+(12, 'Europe Scouting'),
+(4, 'Topscout'),
+(5, 'Topscout'),
+(7, 'Topscout'),
+(1, 'Yalçın'),
+(6, 'Yalçın');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `evaluate_report`
+--
+
+CREATE TABLE `evaluate_report` (
+  `ReportID` int(11) NOT NULL,
+  `ClubName` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `evaluate_report`
+--
+
+INSERT INTO `evaluate_report` (`ReportID`, `ClubName`) VALUES
+(1, 'Manchester United');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Fan`
+--
+
+CREATE TABLE `Fan` (
+  `FanID` int(11) NOT NULL,
+  `FanEmail` varchar(64) DEFAULT NULL,
+  `FanName` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Fan`
+--
+
+INSERT INTO `Fan` (`FanID`, `FanEmail`, `FanName`) VALUES
+(1, 'ismail_1972@gmail.com', 'sergen_adamdır'),
+(2, 'fenerbahcem@gmail.com', 'sarı_kanarya'),
+(3, 'cimbombom@gmail.com', 'dursun_özbek1987'),
+(4, 'karakartal@gmail.com', 'orman_istifa');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `FootballPlayer`
+--
+
+CREATE TABLE `FootballPlayer` (
+  `PlayerID` int(11) NOT NULL,
+  `FirstName` varchar(64) DEFAULT NULL,
+  `LastName` varchar(64) DEFAULT NULL,
+  `Heigth` int(11) DEFAULT NULL,
+  `Age` int(11) DEFAULT NULL,
+  `Country` varchar(64) DEFAULT NULL,
+  `League` varchar(64) DEFAULT NULL,
+  `MinutesPlayed` int(11) DEFAULT NULL,
+  `PlayerPosition` varchar(64) DEFAULT NULL,
+  `BestFoot` varchar(1) DEFAULT NULL,
+  `BirthCountry` varchar(64) DEFAULT NULL,
+  `TransferFee` int(11) DEFAULT NULL,
+  `Skills` int(11) DEFAULT NULL,
+  `Goal` int(11) DEFAULT NULL,
+  `Asist` int(11) DEFAULT NULL,
+  `Pace` int(11) DEFAULT NULL,
+  `Shoot` int(11) DEFAULT NULL,
+  `Dribbling` int(11) DEFAULT NULL,
+  `Physic` int(11) DEFAULT NULL,
+  `Defence` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `FootballPlayer`
+--
+
+INSERT INTO `FootballPlayer` (`PlayerID`, `FirstName`, `LastName`, `Heigth`, `Age`, `Country`, `League`, `MinutesPlayed`, `PlayerPosition`, `BestFoot`, `BirthCountry`, `TransferFee`, `Skills`, `Goal`, `Asist`, `Pace`, `Shoot`, `Dribbling`, `Physic`, `Defence`) VALUES
+(1, 'Paul', 'Pogba', 190, 25, 'England', 'Premier League', 13535, 'MF', 'R', 'France', 100000000, 91, 23, 4, 94, 88, 88, 91, 89),
+(2, 'Andres', 'Inıesta', 170, 35, 'Japan', 'J1 League', 43562, 'MF', 'R', 'Spain', 4500000, 78, 6, 13, 78, 82, 88, 72, 78),
+(3, 'Virgil', 'Van Dijk', 193, 28, 'England', 'Premier League', 15600, 'DF', 'R', 'Netherlands', 80000000, 88, 20, 11, 77, 60, 72, 86, 90),
+(4, 'Marc-Andre', 'ter Stegen', 187, 28, 'Spain', 'La Liga', 14235, 'GK', 'R', 'Germany', 40000000, 91, 0, 2, 55, 85, 40, 90, 84),
+(5, 'Luka', 'Modric', 172, 34, 'Spain', 'La Liga', 14000, 'MF', 'R', 'Croatia', 40000000, 88, 20, 26, 74, 76, 90, 66, 72),
+(6, 'Mohamed', 'Salah', 175, 27, 'England', 'Premier League', 15600, 'FW', 'L', 'Egypt', 200000000, 94, 50, 46, 93, 86, 89, 74, 45),
+(7, 'Jan', 'Oblak', 188, 27, 'Spain', 'La Liga', 14600, 'GK', 'R', 'Netherlands', 80000000, 90, 0, 0, 77, 60, 72, 86, 90),
+(8, 'Kevin', 'De Bruyne', 181, 28, 'England', 'Premier League', 12235, 'MF', 'R', 'Belgium', 120000000, 89, 8, 16, 76, 86, 87, 78, 61),
+(9, 'Eden', 'Hazard', 175, 29, 'Spain', 'La Liga', 10235, 'FW', 'R', 'Germany', 80000000, 90, 14, 15, 91, 83, 94, 66, 35),
+(10, 'Antoine', 'Griezmann', 176, 29, 'Spain', 'La Liga', 14554, 'FW', 'L', 'France', 96000000, 88, 48, 30, 81, 86, 89, 72, 57),
+(11, 'Ngolo', 'Kante', 168, 29, 'England', 'Premier League', 15235, 'MF', 'R', 'France', 80000000, 91, 25, 13, 78, 65, 81, 83, 87),
+(12, 'Kalidou', 'Koulibaly', 187, 28, 'Italy', 'Serie A', 15635, 'DF', 'R', 'Senegal', 56000000, 86, 5, 3, 71, 28, 68, 87, 89),
+(13, 'Harry', 'Kane', 188, 26, 'England', 'Premier League', 14235, 'FW', 'R', 'England', 120000000, 90, 60, 20, 70, 91, 79, 83, 47),
+(14, 'Robert', 'Lewandowski', 184, 31, 'Germany', 'Bundesliga', 14235, 'FW', 'R', 'Poland', 56000000, 89, 59, 13, 77, 87, 85, 82, 41),
+(15, 'Giorgio', 'Chiellini', 187, 35, 'Italy', 'Serie A', 12235, 'DF', 'L', 'Italy', 4000000, 90, 10, 6, 68, 46, 62, 82, 90),
+(16, 'Sergio', 'Agüero', 187, 28, 'England', 'Premier League', 14635, 'FW', 'R', 'Argentina', 52000000, 89, 61, 19, 80, 90, 88, 74, 33),
+(17, 'Sergio', 'Ramos', 184, 34, 'Spain', 'La Liga', 17635, 'DF', 'R', 'Spain', 14500000, 88, 3, 5, 72, 68, 74, 85, 87),
+(18, 'Kylian', 'Mbappe', 178, 21, 'France', 'Ligue 1', 14845, 'FW', 'R', 'France', 180000000, 95, 49, 49, 96, 84, 90, 75, 39),
+(19, 'Christian', 'Eriksen', 182, 28, 'Italy', 'Serie A', 12635, 'MF', 'R', 'Denmark', 68000000, 87, 20, 23, 73, 81, 84, 63, 53),
+(20, 'Toni', 'Kross', 183, 30, 'Spain', 'La Liga', 11635, 'MF', 'R', 'Germany', 48000000, 88, 19, 25, 45, 80, 81, 69, 70),
+(21, 'Sadio', 'Mane', 174, 28, 'England', 'Premier League', 14335, 'FW', 'R', 'Senegal', 120000000, 89, 45, 49, 94, 83, 88, 74, 44),
+(22, 'Gerard', 'Pique', 192, 33, 'Spain', 'La Liga', 13635, 'DF', 'R', 'Spain', 20000000, 86, 4, 4, 56, 61, 69, 80, 88),
+(23, 'Pierre-Emerick', 'Aubameyang', 187, 30, 'England', 'Premier League', 14635, 'FW', 'R', 'Gabon', 56000000, 88, 45, 30, 94, 85, 80, 69, 37),
+(24, 'Raheem', 'Sterling', 170, 25, 'England', 'Premier League', 14635, 'FW', 'R', 'England', 128000000, 92, 31, 25, 93, 79, 89, 57, 45),
+(25, 'Luis', 'Suarez', 182, 33, 'Spain', 'La Liga', 10635, 'FW', 'R', 'Uruguay', 28000000, 87, 35, 10, 3, 89, 84, 84, 51),
+(26, 'Sergio', 'Busquets', 189, 31, 'Spain', 'La Liga', 14775, 'MF', 'R', 'Spain', 28000000, 86, 5, 7, 42, 62, 81, 80, 85),
+(27, 'Paulo', 'Dybala', 177, 26, 'Italy', 'Serie A', 14635, 'FW', 'L', 'Argentina', 72000000, 89, 25, 27, 83, 82, 90, 84, 43),
+(28, 'Diego', 'Godin', 187, 34, 'Italy', 'Serie A', 10633, 'DF', 'R', 'Uruguay', 8000000, 84, 3, 3, 60, 48, 63, 83, 89),
+(29, 'David', 'Silva', 170, 34, 'England', 'Premier League', 9335, 'MF', 'L', 'Spain', 12000000, 78, 15, 29, 65, 74, 89, 57, 52),
+(30, 'Edinson', 'Cavani', 184, 33, 'France', 'Ligue 1', 14635, 'FW', 'R', 'Uruguay', 20000000, 85, 30, 15, 75, 86, 79, 83, 55),
+(31, 'Alexandre', 'Lacazette', 176, 28, 'England', 'Premier League', 14333, 'FW', 'R', 'France', 48000000, 84, 31, 9, 82, 85, 86, 74, 40),
+(32, 'Angel', 'Di Maria', 180, 32, 'France', 'Ligue 1', 14635, 'FW', 'L', 'Argentina', 32000000, 83, 19, 15, 84, 79, 87, 68, 48),
+(33, 'Miralem', 'Pjanic', 180, 30, 'Italy', 'Seria A', 11635, 'MF', 'R', 'Bosnia-Herzegovina', 52000000, 85, 10, 13, 68, 68, 85, 67, 75),
+(34, 'Leroy', 'Sane', 184, 24, 'England', 'Premier League', 9635, 'FW', 'L', 'Uruguay', 80000000, 91, 30, 15, 95, 81, 86, 70, 38),
+(35, 'Joshua', 'Kimmich', 176, 25, 'Germany', 'Bundesliga', 14444, 'MF', 'R', 'Germany', 64000000, 78, 3, 15, 72, 69, 84, 78, 79),
+(36, 'Jan', 'Vertonghen', 189, 33, 'England', 'Premier League', 11111, 'DF', 'L', 'Belgium', 14500000, 82, 4, 3, 63, 63, 3, 79, 87),
+(37, 'Lorenzo', 'Insigne', 163, 28, 'Italy', 'Serie A', 10000, 'FW', 'R', 'Italy', 48000000, 89, 30, 9, 89, 79, 91, 67, 35),
+(38, 'Thiago', 'Silva', 183, 35, 'France', 'Ligue 1', 10356, 'DF', 'R', 'Uruguay', 4800000, 88, 5, 2, 62, 54, 73, 78, 87),
+(39, 'Dries', 'Mertens', 169, 33, 'Italy', 'Seria A', 14635, 'FW', 'R', 'Belgium', 20000000, 83, 11, 11, 88, 83, 90, 53, 35),
+(40, 'Aymeric', 'Laporte', 190, 25, 'England', 'Premier League', 10654, 'DF', 'L', 'France', 60000000, 88, 6, 1, 64, 50, 69, 82, 88),
+(41, 'Thiago', 'Alcantara', 174, 29, 'Germany', 'Germany', 9564, 'MF', 'R', 'Spain', 48000000, 80, 10, 10, 69, 74, 90, 63, 69),
+(42, 'Bernardo', 'Silva', 173, 25, 'England', 'Premier League', 12457, 'MF', 'L', 'Portugal', 8000000, 87, 15, 15, 81, 76, 92, 67, 51),
+(43, 'Toby', 'Alderweireld', 186, 31, 'England', 'Premier League', 12135, 'DF', 'R', 'Belgium', 24000000, 84, 3, 5, 64, 55, 67, 79, 88),
+(44, 'Heung-min', 'Son', 184, 27, 'England', 'Premier League', 14635, 'FW', 'R', 'South Korea', 64000000, 84, 25, 11, 88, 86, 87, 68, 42),
+(45, 'Mats', 'Hummels', 191, 31, 'Germany', 'Bundesliga', 10635, 'DF', 'R', 'Germany', 24000000, 88, 5, 5, 51, 58, 73, 76, 89),
+(46, 'Jordi', 'Alba', 170, 31, 'Spain', 'La Liga', 11615, 'DF', 'L', 'Spain', 40000000, 82, 3, 11, 90, 69, 83, 73, 79),
+(47, 'Karim', 'Benzema', 184, 32, 'Spain', 'La Liga', 9635, 'FW', 'R', 'France', 32000000, 83, 25, 9, 76, 82, 86, 39, 77),
+(48, 'Axel', 'Witsel', 188, 31, 'Germany', 'Bundesliga', 8445, 'MF', 'R', 'Belgium', 21500000, 80, 10, 5, 73, 74, 80, 81, 83),
+(49, 'Andrew', 'Robertson', 178, 26, 'England', 'Premier League', 12635, 'DF', 'L', 'Scotland', 64000000, 79, 5, 15, 85, 62, 79, 75, 80),
+(50, 'Raphael', 'Varane', 191, 27, 'Spain', 'La Liga', 14635, 'DF', 'R', 'France', 64000000, 88, 6, 5, 83, 45, 64, 80, 85),
+(51, 'Frankie', 'de Jong', 181, 23, 'Spain', 'La Liga', 7635, 'MF', 'R', 'Holland', 72000000, 79, 19, 21, 79, 64, 88, 76, 76),
+(52, 'James', 'Rodriguez', 181, 28, 'Spain', 'La Liga', 9935, 'MF', 'L', 'Colombia', 32000000, 89, 15, 15, 55, 86, 86, 63, 50),
+(53, 'Daniel', 'Parejo', 182, 31, 'Spain', 'La Liga', 10035, 'MF', 'R', 'Spain', 28000000, 72, 9, 13, 41, 80, 79, 69, 70),
+(54, 'Ciro', 'Immobile', 185, 30, 'Italy', 'Seria A', 12777, 'FW', 'R', 'Italy', 40000000, 82, 30, 17, 80, 85, 81, 76, 39),
+(55, 'Philippe', 'Coutinho', 172, 27, 'Germany', 'Bundesliga', 9635, 'FW', 'R', 'Brasil', 56000000, 84, 21, 21, 79, 80, 90, 64, 52),
+(56, 'Thomas', 'Müller', 186, 30, 'Germany', 'Bundesliga', 9625, 'FW', 'R', 'Germany', 25500000, 85, 20, 25, 72, 83, 78, 71, 55),
+(57, 'Samuel', 'Umtiti', 182, 26, 'Spain', 'La Liga', 11115, 'DF', 'L', 'France', 32000000, 81, 3, 3, 69, 63, 70, 82, 86),
+(58, 'Milan', 'Skriniar', 188, 25, 'Italy', 'Seria A', 10054, 'DF', 'R', 'Slovakia', 48000000, 79, 1, 1, 69, 41, 66, 82, 87),
+(59, 'Ivan', 'Rakitic', 184, 32, 'Spain', 'La Liga', 10455, 'MF', 'R', 'Croatia', 20000000, 80, 10, 13, 62, 81, 81, 70, 74),
+(60, 'Leonardo', 'Bonucci', 190, 33, 'Italy', 'Seria A', 14635, 'DF', 'R', 'Italy', 20000000, 83, 2, 3, 58, 58, 71, 79, 87),
+(61, 'Marco', 'Veratti', 165, 27, 'France', 'Ligue 1', 9999, 'MF', 'R', 'Italy', 60000000, 88, 9, 11, 65, 60, 90, 66, 79),
+(62, 'Roberto', 'Firmino', 181, 27, 'England', 'Premier League', 13635, 'FW', 'R', 'Brasil', 72000000, 87, 35, 24, 77, 82, 87, 78, 61),
+(63, 'Zlatan', 'Ibrahimovic', 195, 38, 'Italy', 'Seria A', 7555, 'FW', 'R', 'Sweden', 2800000, 80, 25, 2, 56, 88, 78, 78, 34),
+(64, 'Bruno', 'Fernandes', 183, 25, 'England', 'Premier League', 8635, 'MF', 'R', 'Portugal', 48000000, 82, 13, 13, 77, 83, 85, 74, 65),
+(65, 'Saul', 'Niguez', 184, 25, 'Spain', 'La Liga', 11635, 'MF', 'L', 'Spain', 72000000, 77, 10, 20, 70, 78, 81, 78, 78),
+(66, 'Hakim', 'Ziyech', 181, 27, 'Holland', 'Eredevisie', 13735, 'MF', 'L', 'Morocco', 40000000, 81, 20, 18, 80, 75, 83, 66, 50),
+(67, 'Sergej', 'Milinkovic-Savic', 191, 25, 'Italy', 'Seria A', 14635, 'MF', 'R', 'Serbia', 64000000, 80, 9, 9, 67, 79, 82, 84, 77),
+(68, 'Jose Maria', 'Gimenez', 185, 25, 'Spain', 'La Liga', 10002, 'DF', 'R', 'Uruguay', 56000000, 82, 1, 2, 69, 45, 56, 82, 86),
+(69, 'Kostas', 'Manolas', 189, 28, 'Italy', 'Seria A', 11222, 'DF', 'R', 'Greece', 32000000, 80, 2, 2, 82, 25, 62, 81, 86),
+(70, 'Mauro', 'Icardi', 181, 27, 'France', 'Ligue 1', 9998, 'FW', 'R', 'Argentina', 60000000, 82, 15, 10, 75, 84, 77, 69, 36),
+(71, 'Blaise', 'Matuidi', 175, 33, 'Italy', 'Seria A', 10001, 'MF', 'L', 'France', 10500000, 82, 6, 3, 75, 66, 78, 81, 83),
+(72, 'David', 'Alaba', 180, 27, 'Germany', 'Bundesliga', 10000, 'DF', 'L', 'Austria', 52000000, 78, 5, 6, 83, 73, 80, 76, 80),
+(73, 'Alejandro', 'Gomez', 167, 32, 'Italy', 'Seria A', 10235, 'MF', 'R', 'Argentina', 13000000, 83, 6, 7, 89, 78, 86, 55, 39),
+(74, 'Niklas', 'Süle', 195, 24, 'Germany', 'Bundesliga', 9995, 'DF', 'R', 'Germany', 48000000, 81, 2, 1, 72, 42, 51, 82, 86),
+(75, 'Alex', 'Sandro', 181, 29, 'Italy', 'Seria A', 10000, 'DF', 'L', 'Brasil', 40000000, 81, 3, 12, 83, 65, 80, 82, 82),
+(76, 'Matthijs', 'de Ligt', 189, 20, 'Italy', 'Seria A', 11111, 'DF', 'R', 'Holland', 67500000, 80, 5, 3, 67, 58, 69, 84, 83),
+(77, 'Jadon', 'Sancho', 180, 20, 'Germany', 'Bundesliga', 12222, 'FW', 'R', 'England', 117000000, 82, 15, 20, 88, 72, 90, 60, 36),
+(78, 'Evan', 'NDicka', 192, 20, 'Germany', 'Bundesliga', 8252, 'DF', 'L', 'France', 22500000, 75, 3, 5, 68, 44, 61, 74, 76),
+(79, 'Krzysztof', 'Piatek', 183, 24, 'Germany', 'Bundesliga', 9254, 'FW', 'R', 'Poland', 21500000, 74, 18, 13, 76, 80, 73, 71, 38),
+(80, 'Dan-Axel', 'Zagadou', 196, 20, 'Germany', 'Bundesliga', 8046, 'DF', 'L', 'France', 31500000, 72, 3, 5, 62, 34, 51, 80, 80),
+(81, 'Mehmet Zeki', 'Çelik', 180, 23, 'France', 'Ligue 1', 10000, 'DF', 'R', 'Turkey', 16000000, 72, 2, 10, 81, 42, 71, 74, 73),
+(82, 'Jacob Bruun', 'Larsen', 183, 21, 'Germany', 'Bundesliga', 8046, 'MF', 'R', 'Denmark', 11000000, 82, 7, 10, 85, 70, 75, 73, 57),
+(83, 'Youssouf', 'Kone', 174, 24, 'France', 'Ligue 1', 8046, 'DF', 'L', 'Mali', 6500000, 71, 3, 5, 84, 47, 74, 72, 71),
+(84, 'Wenderson', 'Galeno', 179, 22, 'Potugal', 'Liga NOS', 8046, 'MF', 'R', 'Brasil', 5500000, 82, 7, 8, 88, 70, 80, 65, 32),
+(85, 'Gennaro', 'Tutino', 177, 23, 'Italy', 'Seria A', 10046, 'MF', 'R', 'Italy', 2000000, 75, 5, 10, 77, 75, 75, 66, 35),
+(86, 'Dominik', 'Livakovic', 188, 25, 'Croatia', '1.HNL', 8046, 'GK', 'R', 'Croatia', 10500000, 80, 0, 0, 80, 78, 82, 79, 51),
+(87, 'Edin', 'Visca', 172, 30, 'Turkey', 'Süper Lig', 13245, 'FW', 'R', 'Bosnia-Herzegovina', 10500000, 78, 20, 15, 87, 79, 84, 64, 47),
+(88, 'Max', 'Kruse', 180, 32, 'Turkey', 'Süper Lig', 11111, 'MF', 'L', 'Germany', 8500000, 77, 8, 7, 66, 83, 83, 70, 45),
+(89, 'Radamel', 'Falcao', 177, 34, 'Turkey', 'Süper Lig', 4562, 'FW', 'R', 'Colombia', 4800000, 78, 11, 5, 65, 82, 77, 72, 43),
+(90, 'Luiz', 'Gustavo', 187, 32, 'Turkey', 'Süper Lig', 12454, 'MF', 'L', 'Brasil', 5500000, 72, 5, 6, 58, 60, 70, 82, 80),
+(91, 'Ricardo', 'Quaresma', 175, 36, 'Turkey', 'Süper Lig', 11111, 'MF', 'R', 'Portugal', 400000, 79, 1, 11, 77, 73, 86, 63, 24),
+(92, 'Henry', 'Onyekuru', 175, 22, 'Turkey', 'Süper Lig', 11131, 'MF', 'R', 'Nigeria', 8000000, 80, 8, 7, 90, 74, 81, 56, 34),
+(93, 'Timo', 'Werner', 181, 24, 'Germany', 'Bundesliga', 11211, 'FW', 'R', 'Germany', 64000000, 84, 19, 10, 92, 84, 84, 71, 36),
+(94, 'Wilfred', 'Ndidi', 183, 23, 'England', 'Premier Ligue', 9111, 'MF', 'R', 'Nigeria', 36000000, 79, 8, 7, 72, 64, 75, 83, 86),
+(95, 'Steven', 'Bergwijn', 178, 22, 'England', 'Premier Ligue', 11111, 'MF', 'R', 'Holland', 28000000, 83, 10, 10, 89, 75, 85, 73, 40),
+(96, 'David', 'Neres', 176, 23, 'Holland', 'Eredevisie', 12111, 'MF', 'L', 'Brasil', 36000000, 78, 8, 7, 87, 73, 87, 65, 36),
+(97, 'Donny', 'van de Beek', 184, 23, 'Holland', 'Eredevisie', 12111, 'MF', 'R', 'Holland', 44000000, 78, 10, 19, 71, 78, 79, 79, 71),
+(98, 'Çağlar', 'Söyüncü', 187, 23, 'England', 'Premier Ligue', 10111, 'DF', 'R', 'Turkey', 32000000, 77, 5, 1, 70, 46, 66, 77, 79),
+(99, 'Cristian', 'Pavon', 174, 24, 'USA', 'MLS', 12111, 'MF', 'R', 'Argentina', 10000000, 79, 8, 7, 91, 76, 78, 74, 49),
+(100, 'Matias', 'Zaracho', 171, 22, 'Argentina', 'Superliga', 10141, 'MF', 'R', 'Argentina', 15500000, 79, 12, 15, 87, 66, 83, 62, 63);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `list_all_scouting_agencies`
+-- (See below for the actual view)
+--
+CREATE TABLE `list_all_scouting_agencies` (
+`Availability` varchar(64)
+,`ScoutName` varchar(64)
+,`ScoutID` int(11)
+,`ScoutEmail` varchar(64)
+,`Task` varchar(64)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `player_agent`
+--
+
+CREATE TABLE `player_agent` (
+  `PlayerID` int(11) NOT NULL,
+  `AgentName` varchar(64) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `player_agent`
+--
+
+INSERT INTO `player_agent` (`PlayerID`, `AgentName`) VALUES
+(2, 'Agent 1'),
+(14, 'Agent 1'),
+(35, 'Agent 1'),
+(41, 'Agent 1'),
+(45, 'Agent 1'),
+(48, 'Agent 1'),
+(17, 'Agent 2'),
+(22, 'Agent 2'),
+(49, 'Agent 2'),
+(50, 'Agent 2'),
+(55, 'Agent 2'),
+(56, 'Agent 2'),
+(70, 'Agent 2'),
+(72, 'Agent 2'),
+(75, 'Agent 2'),
+(80, 'Agent 2'),
+(93, 'Agent 2'),
+(97, 'Agent 2'),
+(1, 'Agent 3'),
+(23, 'Agent 3'),
+(24, 'Agent 3'),
+(44, 'Agent 3'),
+(51, 'Agent 3'),
+(52, 'Agent 3'),
+(74, 'Agent 3'),
+(76, 'Agent 3'),
+(81, 'Agent 3'),
+(90, 'Agent 3'),
+(91, 'Agent 3'),
+(92, 'Agent 3'),
+(94, 'Agent 3'),
+(3, 'Agent 4'),
+(18, 'Agent 4'),
+(19, 'Agent 4'),
+(21, 'Agent 4'),
+(25, 'Agent 4'),
+(40, 'Agent 4'),
+(43, 'Agent 4'),
+(53, 'Agent 4'),
+(54, 'Agent 4'),
+(71, 'Agent 4'),
+(77, 'Agent 4'),
+(82, 'Agent 4'),
+(95, 'Agent 4'),
+(6, 'Agent 5'),
+(20, 'Agent 5'),
+(26, 'Agent 5'),
+(42, 'Agent 5'),
+(57, 'Agent 5'),
+(58, 'Agent 5'),
+(73, 'Agent 5'),
+(79, 'Agent 5'),
+(83, 'Agent 5'),
+(96, 'Agent 5'),
+(4, 'Ahmet Bulut'),
+(7, 'Ahmet Bulut'),
+(9, 'Ahmet Bulut'),
+(28, 'Ahmet Bulut'),
+(29, 'Ahmet Bulut'),
+(32, 'Ahmet Bulut'),
+(33, 'Ahmet Bulut'),
+(46, 'Ahmet Bulut'),
+(47, 'Ahmet Bulut'),
+(59, 'Ahmet Bulut'),
+(60, 'Ahmet Bulut'),
+(61, 'Ahmet Bulut'),
+(67, 'Ahmet Bulut'),
+(68, 'Ahmet Bulut'),
+(69, 'Ahmet Bulut'),
+(84, 'Ahmet Bulut'),
+(86, 'Ahmet Bulut'),
+(98, 'Ahmet Bulut'),
+(5, 'Batur Altıparmak'),
+(8, 'Batur Altıparmak'),
+(10, 'Batur Altıparmak'),
+(30, 'Batur Altıparmak'),
+(31, 'Batur Altıparmak'),
+(37, 'Batur Altıparmak'),
+(38, 'Batur Altıparmak'),
+(62, 'Batur Altıparmak'),
+(63, 'Batur Altıparmak'),
+(66, 'Batur Altıparmak'),
+(85, 'Batur Altıparmak'),
+(99, 'Batur Altıparmak'),
+(12, 'Jorge Mendes'),
+(13, 'Jorge Mendes'),
+(15, 'Jorge Mendes'),
+(16, 'Jorge Mendes'),
+(27, 'Jorge Mendes'),
+(34, 'Jorge Mendes'),
+(36, 'Jorge Mendes'),
+(39, 'Jorge Mendes'),
+(64, 'Jorge Mendes'),
+(65, 'Jorge Mendes'),
+(89, 'Jorge Mendes'),
+(100, 'Jorge Mendes');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `player_transfer`
+--
+
+CREATE TABLE `player_transfer` (
+  `PlayerID` int(11) NOT NULL,
+  `TransferID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `prepares`
+--
+
+CREATE TABLE `prepares` (
+  `ReportID` int(11) NOT NULL,
+  `ScoutID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Report`
+--
+
+CREATE TABLE `Report` (
+  `ReportID` int(11) NOT NULL,
+  `ScoutID` int(11) NOT NULL,
+  `ReportName` varchar(64) DEFAULT NULL,
+  `ReportTime` date DEFAULT NULL,
+  `ReportComment` varchar(64) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Report`
+--
+
+INSERT INTO `Report` (`ReportID`, `ScoutID`, `ReportName`, `ReportTime`, `ReportComment`) VALUES
+(1, 8, 'Founded young forwards', '2020-01-01', 'Best footballers');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Request`
+--
+
+CREATE TABLE `Request` (
+  `RequestID` int(11) NOT NULL,
+  `RequestName` varchar(64) DEFAULT NULL,
+  `Organization` varchar(64) DEFAULT NULL,
+  `NumberOfScouts` int(11) DEFAULT NULL,
+  `PlayerPosition` varchar(64) DEFAULT NULL,
+  `RequestStatus` varchar(64) DEFAULT 'Ongoing'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Request`
+--
+
+INSERT INTO `Request` (`RequestID`, `RequestName`, `Organization`, `NumberOfScouts`, `PlayerPosition`, `RequestStatus`) VALUES
+(1, 'New stoper', 'Premier League', 2, 'DF', 'Ongoing'),
+(2, 'Young forward', 'Bundesliga', 1, 'FW', 'Ongoing'),
+(3, 'Elite stoper', 'Premier League', 1, 'DF', 'Ongoing'),
+(4, 'Elite midfielder', 'Bundesliga', 1, 'MF', 'Ongoing');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `responds`
+--
+
+CREATE TABLE `responds` (
+  `RespondsID` int(11) NOT NULL,
+  `ClubName` varchar(64) NOT NULL,
+  `TransferID` int(11) NOT NULL,
+  `AgentName` varchar(64) NOT NULL,
+  `ClubAnswer` varchar(64) NOT NULL DEFAULT 'Waiting',
+  `AgencyAnswer` varchar(64) NOT NULL DEFAULT 'Waiting'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `responds`
+--
+
+INSERT INTO `responds` (`RespondsID`, `ClubName`, `TransferID`, `AgentName`, `ClubAnswer`, `AgencyAnswer`) VALUES
+(2, 'Bayern Munih', 1, 'Agent 1', 'Accepted', 'Accepted'),
+(3, 'Bayern Munih', 2, 'Agent 2', 'Waiting', 'Accepted'),
+(4, 'Bayern Munih', 3, 'Agent 2', 'Waiting', 'Accepted'),
+(5, 'RasenBallsport Leipzig', 4, 'Agent 2', 'Waiting', 'Waiting');
+
+--
+-- Triggers `responds`
+--
+DELIMITER $$
+CREATE TRIGGER `agency_responds` AFTER INSERT ON `responds` FOR EACH ROW # update agency answer
+UPDATE responds r
+JOIN TransferOffer tp ON tp.TransferID = r.TransferID
+JOIN FootballPlayer fp ON tp.PlayerID = fp.PlayerID
+AND tp.Fee > fp.TransferFee
+SET AgencyAnswer = "Accepted"
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `complete_transfer` AFTER UPDATE ON `responds` FOR EACH ROW UPDATE TransferOffer tf
+JOIN responds r ON r.TransferID = tf.TransferID
+AND r.AgencyAnswer = "Accepted" AND r.ClubAnswer = "Accepted"
+SET tf.TransferStatus = "Completed"
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Scout`
+--
+
+CREATE TABLE `Scout` (
+  `ScoutID` int(11) NOT NULL,
+  `ScoutEmail` varchar(64) DEFAULT NULL,
+  `ScoutName` varchar(64) NOT NULL,
+  `Availability` varchar(64) DEFAULT NULL,
+  `Task` varchar(64) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Scout`
+--
+
+INSERT INTO `Scout` (`ScoutID`, `ScoutEmail`, `ScoutName`, `Availability`, `Task`) VALUES
+(1, 'ismetbahtiyar@gmail.com', 'İsmet Bahtiyar', 'True', 'none'),
+(2, 'alexferguson@gmail.com', 'Alex Ferguson', 'False', 'Scouting Britian'),
+(3, 'ibrahimaltınsay@gmail.com', 'İbrahim Altınsay', 'True', 'none'),
+(4, 'helmutmarko@gmail.com', 'Helmut Marko', 'False', 'none'),
+(5, 'bencriggsworth@gmail.com', 'Ben Crigssworth', 'True', 'none'),
+(6, 'sanchezdasilva@gmail.com', 'Sanchez da Silva', 'True', 'none'),
+(7, 'marcellduschamp@gmail.com', 'Marcell Duschamp', 'True', 'none'),
+(8, 'debroglie@yahoomail.com', 'Louis de Broglie', 'False', 'none'),
+(9, 'pauldirac@gmail.com', 'Paul Dirac', 'True', 'none'),
+(10, 'pierresimonlaplace@gmail.com', 'Pier-Simon Laplace', 'True', 'none'),
+(11, 'edsgerdijkstra@gmail.com', 'Edsger Dijkstra', 'True', 'none'),
+(12, 'gottfriedleibniz@gmail.com', 'Gottfried Leibniz', 'True', 'none');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ScoutingAgency`
+--
+
+CREATE TABLE `ScoutingAgency` (
+  `AgencyEmail` varchar(64) DEFAULT NULL,
+  `AgencyName` varchar(64) NOT NULL,
+  `NumberOfScouts` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `ScoutingAgency`
+--
+
+INSERT INTO `ScoutingAgency` (`AgencyEmail`, `AgencyName`, `NumberOfScouts`) VALUES
+('altıntop_agency@gmail.com', 'AltıntopAgency', 10),
+('europescouting@gmail.com', 'Europe Scouting', 20),
+('topscouting@gmail.com', 'Topscout', 8),
+('agency_yalcın@mail.com', 'Yalçın', 10);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `talented_players`
+--
+
+CREATE TABLE `talented_players` (
+  `ReportID` int(11) NOT NULL,
+  `PlayerID` int(11) NOT NULL,
+  `PlayerComment` varchar(64) DEFAULT NULL,
+  `PlayerRate` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `talented_players`
+--
+
+INSERT INTO `talented_players` (`ReportID`, `PlayerID`, `PlayerComment`, `PlayerRate`) VALUES
+(1, 14, 'great dribbling skills', 8),
+(1, 55, 'great pace', 9),
+(1, 56, 'great pace', 9),
+(1, 77, 'great pace', 9),
+(1, 79, 'great pace', 9),
+(1, 93, 'overall best', 10);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TransferOffer`
+--
+
+CREATE TABLE `TransferOffer` (
+  `TransferID` int(11) NOT NULL,
+  `CallingClubName` varchar(64) DEFAULT NULL,
+  `RespondingClubName` varchar(64) DEFAULT NULL,
+  `PlayerID` int(11) DEFAULT NULL,
+  `Fee` int(11) DEFAULT NULL,
+  `TransferType` varchar(64) NOT NULL,
+  `TransferStatus` varchar(64) DEFAULT 'Active'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `TransferOffer`
+--
+
+INSERT INTO `TransferOffer` (`TransferID`, `CallingClubName`, `RespondingClubName`, `PlayerID`, `Fee`, `TransferType`, `TransferStatus`) VALUES
+(1, 'Manchester United', 'Bayern Munih', 14, 80000000, 'Buy', 'Completed'),
+(2, 'Manchester United', 'Bayern Munih', 55, 75000000, 'Buy', 'Active'),
+(3, 'Manchester United', 'Bayern Munih', 56, 64000000, 'Buy', 'Active'),
+(4, 'Manchester United', 'RasenBallsport Leipzig', 93, 14000000, 'Loan', 'Active');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `UserType`
+--
+
+CREATE TABLE `UserType` (
+  `UserEmail` varchar(64) NOT NULL,
+  `UserPassword` varchar(32) DEFAULT NULL,
+  `AccountType` varchar(32) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `UserType`
+--
+
+INSERT INTO `UserType` (`UserEmail`, `UserPassword`, `AccountType`) VALUES
+('adanademirspor@gmail.com', 'masmavi', 'Club'),
+('agency_yalcın@mail.com', '12345', 'ScoutingAgency'),
+('ajax@gmail.com', 'amsterdam', 'Club'),
+('alexferguson@gmail.com', '1948', 'Scout'),
+('altıntop_agency@gmail.com', '12345', 'ScoutingAgency'),
+('ankaragucu@gmail.com', 'gecekondu', 'Club'),
+('antalyaspor@gmail.com', 'laraplaji', 'Club'),
+('arsenal@gmail.com', 'gunners', 'Club'),
+('atalanta@gmail.com', 'atalanta', 'Club'),
+('atletico@gmail.com', 'atletico', 'Club'),
+('barcelona@gmail.com', 'catalunya', 'Club'),
+('basaksehir@gmail.com', 'baykus', 'Club'),
+('bayernmunih@gmail.com', 'munihingulu', 'Club'),
+('bencriggsworth@gmail.com', 'spitfire', 'Scout'),
+('besiktas@gmail.com', '1903', 'Club'),
+('bordeaux@gmail.com', 'bordofransa', 'Club'),
+('borussiadortmund@gmail.com', 'fussball', 'Club'),
+('braga@gmail.com', 'ivanbebek', 'Club'),
+('chelsea@gmail.com', 'londonmavisi', 'Club'),
+('cimbombom@gmail.com', 'dursun123', 'Fan'),
+('debroglie@yahoomail.com', 'waves', 'Scout'),
+('denizlispor@gmail.com', 'otmehoroz', 'Club'),
+('dinamozagreb@gmail.com', 'zagrebkalesi', 'Club'),
+('edsgerdijkstra@gmail.com', 'baugette', 'Scout'),
+('empoli@gmail.com', 'empoli', 'Club'),
+('europescouting@gmail.com', 'europe1234', 'ScoutingAgency'),
+('everton@gmail.com', 'everton', 'Club'),
+('fenerbahce@gmail.com', 'kadıköy_boga', 'Club'),
+('fenerbahcem@gmail.com', 'fener123', 'Fan'),
+('galatasaray@gmail.com', 'firuzaga', 'Club'),
+('genclerbirligi@gmail.com', 'kirmizikara', 'Club'),
+('gottfriedleibniz@gmail.com', 'baugette', 'Scout'),
+('goztepe@gmail.com', 'gozgozgoztepe', 'Club'),
+('helmutmarko@gmail.com', 'redbull', 'Scout'),
+('herthaberlin@gmail.com', 'muniholimpiyat', 'Club'),
+('hoffenheim@gmail.com', '1hoffenheim', 'Club'),
+('ibrahimaltınsay@gmail.com', 'holoskoartıbirmiktarpara', 'Scout'),
+('inter@gmail.com', 'guiseppemeazza', 'Club'),
+('ismail_1972@gmail.com', '12345', 'Fan'),
+('ismetbahtiyar@gmail.com', 'ismet123', 'Scout'),
+('juventus@gmail.com', 'juvejuve', 'Club'),
+('karakartal@gmail.com', 'inönü1903', 'Fan'),
+('kasimpasa@gmail.com', 'pasalargibi', 'Club'),
+('kayserispor@gmail.com', 'pastirmasucuk', 'Club'),
+('konyaspor@gmail.com', 'mesnevidenders', 'Club'),
+('lagalaxy@gmail.com', 'lagalaxy', 'Club'),
+('lazio@gmail.com', 'sarikartal', 'Club'),
+('leicester@gmail.com', 'foxes', 'Club'),
+('leipzig@gmail.com', 'redbullbogalari', 'Club'),
+('leverkusen@gmail.com', 'ilaclandin', 'Club'),
+('lille@gmail.com', 'lillelille', 'Club'),
+('liverpool@gmail.com', 'sekizler', 'Club'),
+('lyonnais@gmail.com', 'lyonunaslanlari', 'Club'),
+('malatyaspor@gmail.com', '44kayisi44', 'Club'),
+('manchesterunited@gmail.com', 'redevil', 'Club'),
+('mancity@gmail.com', 'manchestermavidir', 'Club'),
+('marcellduschamp@gmail.com', 'baugette', 'Scout'),
+('marsilya@gmail.com', 'marsilya', 'Club'),
+('milan@gmail.com', 'sansiro', 'Club'),
+('napoli@gmail.com', 'sanpaolo', 'Club'),
+('parissaintgermain@gmail.com', 'crouissant', 'Club'),
+('pauldirac@gmail.com', 'baugette', 'Scout'),
+('pierresimonlaplace@gmail.com', 'baugette', 'Scout'),
+('racingclub@gmail.com', 'racingclub', 'Club'),
+('realmadrid@gmail.com', 'kralincocuklari', 'Club'),
+('roma@gmail.com', 'romayikimyakti', 'Club'),
+('sanchezdasilva@gmail.com', 'barca1234', 'Scout'),
+('schalke@gmail.com', 'schalke04', 'Club'),
+('sevilla@gmail.com', 'endulus', 'Club'),
+('sivasspor@gmail.com', 'kangal55', 'Club'),
+('topscouting@gmail.com', 'bestscoutingagency', 'ScoutingAgency'),
+('tottenham@gmail.com', 'tottenham', 'Club'),
+('trabzonspor@gmail.com', 'kupamızıverin', 'Club'),
+('valencia@gmail.com', 'batmans', 'Club');
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `list_all_scouting_agencies`
+--
+DROP TABLE IF EXISTS `list_all_scouting_agencies`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `list_all_scouting_agencies`  AS  select `sc`.`Availability` AS `Availability`,`sc`.`ScoutName` AS `ScoutName`,`sc`.`ScoutID` AS `ScoutID`,`sc`.`ScoutEmail` AS `ScoutEmail`,`sc`.`Task` AS `Task` from ((`scoutingagency` `s` join `employs` `e` on((`e`.`AgencyName` = `s`.`AgencyName`))) join `scout` `sc` on((`sc`.`ScoutID` = `e`.`ScoutID`))) ;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `agency_response`
+--
+ALTER TABLE `agency_response`
+  ADD PRIMARY KEY (`AgencyName`,`RequestID`,`ClubName`),
+  ADD KEY `ClubName` (`ClubName`),
+  ADD KEY `RequestID` (`RequestID`);
+
+--
+-- Indexes for table `Agent`
+--
+ALTER TABLE `Agent`
+  ADD PRIMARY KEY (`AgentName`);
+
+--
+-- Indexes for table `assigns`
+--
+ALTER TABLE `assigns`
+  ADD PRIMARY KEY (`AgencyName`,`ScoutID`,`RequestID`),
+  ADD UNIQUE KEY `ScoutID` (`ScoutID`),
+  ADD KEY `RequestID` (`RequestID`);
+
+--
+-- Indexes for table `Club`
+--
+ALTER TABLE `Club`
+  ADD PRIMARY KEY (`ClubName`),
+  ADD UNIQUE KEY `ClubRank` (`ClubRank`),
+  ADD KEY `ClubEmail` (`ClubEmail`);
+
+--
+-- Indexes for table `club_request`
+--
+ALTER TABLE `club_request`
+  ADD PRIMARY KEY (`RequestID`,`ClubName`),
+  ADD KEY `ClubName` (`ClubName`);
+
+--
+-- Indexes for table `consist_of`
+--
+ALTER TABLE `consist_of`
+  ADD PRIMARY KEY (`DreamTeamName`,`PlayerID`),
+  ADD KEY `PlayerID` (`PlayerID`);
+
+--
+-- Indexes for table `contract`
+--
+ALTER TABLE `contract`
+  ADD PRIMARY KEY (`ClubName`,`PlayerID`),
+  ADD KEY `PlayerID` (`PlayerID`);
+
+--
+-- Indexes for table `create_dream_team`
+--
+ALTER TABLE `create_dream_team`
+  ADD PRIMARY KEY (`FanID`,`DreamTeamName`),
+  ADD KEY `DreamTeamName` (`DreamTeamName`);
+
+--
+-- Indexes for table `DreamTeam`
+--
+ALTER TABLE `DreamTeam`
+  ADD PRIMARY KEY (`DreamTeamName`);
+
+--
+-- Indexes for table `employs`
+--
+ALTER TABLE `employs`
+  ADD PRIMARY KEY (`ScoutID`,`AgencyName`),
+  ADD KEY `AgencyName` (`AgencyName`);
+
+--
+-- Indexes for table `evaluate_report`
+--
+ALTER TABLE `evaluate_report`
+  ADD PRIMARY KEY (`ReportID`,`ClubName`),
+  ADD KEY `ClubName` (`ClubName`);
+
+--
+-- Indexes for table `Fan`
+--
+ALTER TABLE `Fan`
+  ADD PRIMARY KEY (`FanID`),
+  ADD KEY `FanEmail` (`FanEmail`);
+
+--
+-- Indexes for table `FootballPlayer`
+--
+ALTER TABLE `FootballPlayer`
+  ADD PRIMARY KEY (`PlayerID`);
+
+--
+-- Indexes for table `player_agent`
+--
+ALTER TABLE `player_agent`
+  ADD PRIMARY KEY (`PlayerID`),
+  ADD KEY `AgentName` (`AgentName`);
+
+--
+-- Indexes for table `player_transfer`
+--
+ALTER TABLE `player_transfer`
+  ADD PRIMARY KEY (`PlayerID`,`TransferID`),
+  ADD KEY `TransferID` (`TransferID`);
+
+--
+-- Indexes for table `prepares`
+--
+ALTER TABLE `prepares`
+  ADD PRIMARY KEY (`ReportID`,`ScoutID`),
+  ADD KEY `ScoutID` (`ScoutID`);
+
+--
+-- Indexes for table `Report`
+--
+ALTER TABLE `Report`
+  ADD PRIMARY KEY (`ReportID`,`ScoutID`),
+  ADD KEY `ScoutID` (`ScoutID`);
+
+--
+-- Indexes for table `Request`
+--
+ALTER TABLE `Request`
+  ADD PRIMARY KEY (`RequestID`);
+
+--
+-- Indexes for table `responds`
+--
+ALTER TABLE `responds`
+  ADD PRIMARY KEY (`RespondsID`,`ClubName`,`TransferID`,`AgentName`,`ClubAnswer`,`AgencyAnswer`),
+  ADD KEY `ClubName` (`ClubName`),
+  ADD KEY `TransferID` (`TransferID`),
+  ADD KEY `AgentName` (`AgentName`);
+
+--
+-- Indexes for table `Scout`
+--
+ALTER TABLE `Scout`
+  ADD PRIMARY KEY (`ScoutID`),
+  ADD KEY `ScoutEmail` (`ScoutEmail`);
+
+--
+-- Indexes for table `ScoutingAgency`
+--
+ALTER TABLE `ScoutingAgency`
+  ADD PRIMARY KEY (`AgencyName`),
+  ADD UNIQUE KEY `AgencyEmail` (`AgencyEmail`);
+
+--
+-- Indexes for table `talented_players`
+--
+ALTER TABLE `talented_players`
+  ADD PRIMARY KEY (`ReportID`,`PlayerID`),
+  ADD KEY `PlayerID` (`PlayerID`);
+
+--
+-- Indexes for table `TransferOffer`
+--
+ALTER TABLE `TransferOffer`
+  ADD PRIMARY KEY (`TransferID`),
+  ADD KEY `CallingClubName` (`CallingClubName`),
+  ADD KEY `RespondingClubName` (`RespondingClubName`),
+  ADD KEY `PlayerID` (`PlayerID`);
+
+--
+-- Indexes for table `UserType`
+--
+ALTER TABLE `UserType`
+  ADD PRIMARY KEY (`UserEmail`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `Fan`
+--
+ALTER TABLE `Fan`
+  MODIFY `FanID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `FootballPlayer`
+--
+ALTER TABLE `FootballPlayer`
+  MODIFY `PlayerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+
+--
+-- AUTO_INCREMENT for table `Report`
+--
+ALTER TABLE `Report`
+  MODIFY `ReportID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `Request`
+--
+ALTER TABLE `Request`
+  MODIFY `RequestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `responds`
+--
+ALTER TABLE `responds`
+  MODIFY `RespondsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `Scout`
+--
+ALTER TABLE `Scout`
+  MODIFY `ScoutID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `TransferOffer`
+--
+ALTER TABLE `TransferOffer`
+  MODIFY `TransferID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `agency_response`
+--
+ALTER TABLE `agency_response`
+  ADD CONSTRAINT `agency_response_ibfk_1` FOREIGN KEY (`ClubName`) REFERENCES `Club` (`ClubName`) ON DELETE CASCADE,
+  ADD CONSTRAINT `agency_response_ibfk_2` FOREIGN KEY (`AgencyName`) REFERENCES `ScoutingAgency` (`AgencyName`) ON DELETE CASCADE,
+  ADD CONSTRAINT `agency_response_ibfk_3` FOREIGN KEY (`RequestID`) REFERENCES `Request` (`RequestID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `assigns`
+--
+ALTER TABLE `assigns`
+  ADD CONSTRAINT `assigns_ibfk_1` FOREIGN KEY (`AgencyName`) REFERENCES `ScoutingAgency` (`AgencyName`) ON DELETE CASCADE,
+  ADD CONSTRAINT `assigns_ibfk_2` FOREIGN KEY (`ScoutID`) REFERENCES `Scout` (`ScoutID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `assigns_ibfk_3` FOREIGN KEY (`RequestID`) REFERENCES `Request` (`RequestID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `Club`
+--
+ALTER TABLE `Club`
+  ADD CONSTRAINT `club_ibfk_1` FOREIGN KEY (`ClubEmail`) REFERENCES `UserType` (`UserEmail`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `club_request`
+--
+ALTER TABLE `club_request`
+  ADD CONSTRAINT `club_request_ibfk_1` FOREIGN KEY (`RequestID`) REFERENCES `Request` (`RequestID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `club_request_ibfk_2` FOREIGN KEY (`ClubName`) REFERENCES `Club` (`ClubName`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `consist_of`
+--
+ALTER TABLE `consist_of`
+  ADD CONSTRAINT `consist_of_ibfk_1` FOREIGN KEY (`DreamTeamName`) REFERENCES `DreamTeam` (`DreamTeamName`) ON DELETE CASCADE,
+  ADD CONSTRAINT `consist_of_ibfk_2` FOREIGN KEY (`PlayerID`) REFERENCES `FootballPlayer` (`PlayerID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `contract`
+--
+ALTER TABLE `contract`
+  ADD CONSTRAINT `contract_ibfk_1` FOREIGN KEY (`ClubName`) REFERENCES `Club` (`ClubName`) ON DELETE CASCADE,
+  ADD CONSTRAINT `contract_ibfk_2` FOREIGN KEY (`PlayerID`) REFERENCES `FootballPlayer` (`PlayerID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `create_dream_team`
+--
+ALTER TABLE `create_dream_team`
+  ADD CONSTRAINT `create_dream_team_ibfk_1` FOREIGN KEY (`FanID`) REFERENCES `Fan` (`FanID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `create_dream_team_ibfk_2` FOREIGN KEY (`DreamTeamName`) REFERENCES `DreamTeam` (`DreamTeamName`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `employs`
+--
+ALTER TABLE `employs`
+  ADD CONSTRAINT `employs_ibfk_1` FOREIGN KEY (`ScoutID`) REFERENCES `Scout` (`ScoutID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `employs_ibfk_2` FOREIGN KEY (`AgencyName`) REFERENCES `ScoutingAgency` (`AgencyName`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `evaluate_report`
+--
+ALTER TABLE `evaluate_report`
+  ADD CONSTRAINT `evaluate_report_ibfk_1` FOREIGN KEY (`ReportID`) REFERENCES `Report` (`ReportID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `evaluate_report_ibfk_2` FOREIGN KEY (`ClubName`) REFERENCES `Club` (`ClubName`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `Fan`
+--
+ALTER TABLE `Fan`
+  ADD CONSTRAINT `fan_ibfk_1` FOREIGN KEY (`FanEmail`) REFERENCES `UserType` (`UserEmail`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `player_agent`
+--
+ALTER TABLE `player_agent`
+  ADD CONSTRAINT `player_agent_ibfk_1` FOREIGN KEY (`AgentName`) REFERENCES `Agent` (`AgentName`) ON DELETE CASCADE,
+  ADD CONSTRAINT `player_agent_ibfk_2` FOREIGN KEY (`PlayerID`) REFERENCES `FootballPlayer` (`PlayerID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `player_transfer`
+--
+ALTER TABLE `player_transfer`
+  ADD CONSTRAINT `player_transfer_ibfk_1` FOREIGN KEY (`TransferID`) REFERENCES `TransferOffer` (`TransferID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `player_transfer_ibfk_2` FOREIGN KEY (`PlayerID`) REFERENCES `FootballPlayer` (`PlayerID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `prepares`
+--
+ALTER TABLE `prepares`
+  ADD CONSTRAINT `prepares_ibfk_1` FOREIGN KEY (`ScoutID`) REFERENCES `Scout` (`ScoutID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `prepares_ibfk_2` FOREIGN KEY (`ReportID`) REFERENCES `Report` (`ReportID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `Report`
+--
+ALTER TABLE `Report`
+  ADD CONSTRAINT `report_ibfk_1` FOREIGN KEY (`ScoutID`) REFERENCES `Scout` (`ScoutID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `responds`
+--
+ALTER TABLE `responds`
+  ADD CONSTRAINT `responds_ibfk_1` FOREIGN KEY (`ClubName`) REFERENCES `Club` (`ClubName`) ON DELETE CASCADE,
+  ADD CONSTRAINT `responds_ibfk_2` FOREIGN KEY (`TransferID`) REFERENCES `TransferOffer` (`TransferID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `responds_ibfk_3` FOREIGN KEY (`AgentName`) REFERENCES `Agent` (`AgentName`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `Scout`
+--
+ALTER TABLE `Scout`
+  ADD CONSTRAINT `scout_ibfk_1` FOREIGN KEY (`ScoutEmail`) REFERENCES `UserType` (`UserEmail`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `ScoutingAgency`
+--
+ALTER TABLE `ScoutingAgency`
+  ADD CONSTRAINT `scoutingagency_ibfk_1` FOREIGN KEY (`AgencyEmail`) REFERENCES `UserType` (`UserEmail`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `talented_players`
+--
+ALTER TABLE `talented_players`
+  ADD CONSTRAINT `talented_players_ibfk_1` FOREIGN KEY (`ReportID`) REFERENCES `Report` (`ReportID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `talented_players_ibfk_2` FOREIGN KEY (`PlayerID`) REFERENCES `FootballPlayer` (`PlayerID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `TransferOffer`
+--
+ALTER TABLE `TransferOffer`
+  ADD CONSTRAINT `transferoffer_ibfk_1` FOREIGN KEY (`CallingClubName`) REFERENCES `Club` (`ClubName`) ON DELETE SET NULL,
+  ADD CONSTRAINT `transferoffer_ibfk_2` FOREIGN KEY (`RespondingClubName`) REFERENCES `Club` (`ClubName`) ON DELETE SET NULL,
+  ADD CONSTRAINT `transferoffer_ibfk_3` FOREIGN KEY (`PlayerID`) REFERENCES `FootballPlayer` (`PlayerID`) ON DELETE SET NULL;
